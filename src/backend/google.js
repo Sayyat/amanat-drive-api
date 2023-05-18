@@ -5,8 +5,8 @@ const GoogleSheetsKey = "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQ
 async function getOriginalSheet() {
     const auth = new google.auth.GoogleAuth({
         credentials: {
-            client_email: process.env.CLIENT_EMAIL,
-            client_id: process.env.CLIENT_ID,
+            client_email: process.env.CLIENT_EMAIL || "goods-in-shet@checksheet-353507.iam.gserviceaccount.com",
+            client_id: process.env.CLIENT_ID || "112041893168891028722",
             private_key: GoogleSheetsKey.replace(/\\n/g, '\n'),
         },
         scopes: [
@@ -20,7 +20,7 @@ async function getOriginalSheet() {
     });
 // console.log(sheets)
     const response = await sheets.spreadsheets.values.batchGet({
-        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        spreadsheetId: process.env.GOOGLE_SHEET_ID || "13lPWfo1sNBiBuGX2JdlVJm-yvnMxGq0v4lGmw49ELn0",
         ranges: [
             "МАРАФОН 2021 НОЯБРЬ-ДЕКАБРЬ",
             "марафон 2022",
