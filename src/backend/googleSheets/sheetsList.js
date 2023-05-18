@@ -1,27 +1,6 @@
-import {getHousesSheet} from "@/backend/googleSheets/housesSheet";
-import {getAutosSheet} from "@/backend/googleSheets/autosSheet";
+import {getTrimmedHousesSheet} from "@/backend/googleSheets/housesSheet";
+import {getTrimmedAutosSheet} from "@/backend/googleSheets/autosSheet";
 
-
-
-
-function getTrimmedSheet(sheet) {
-    let needSheet = []
-    sheet.map(list => {
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                contractNumber: row[1] || "",
-                date: row[3] || "",
-                fullname: row[13] || "",
-                longIin: row[4] || "",
-                shortIin: row[14] || "",
-            })
-        })
-        needSheet.push(needList)
-    })
-    return needSheet
-}
 
 
 function listContainsIin(list, iin) {
@@ -57,13 +36,11 @@ async function findTablesByIin(sheet, iin) {
 
 
 async function findHouseAndAutoTablesByIin(){
-    const housesSheet = await getHousesSheet();
-    const autosSheet = await getAutosSheet();
-    const trimmedHousesSheet = getTrimmedSheet(housesSheet);
-    const trimmedAutosSheet = getTrimmedSheet(autosSheet);
+    const housesSheet = await getTrimmedHousesSheet();
+    const autosSheet = await getTrimmedAutosSheet();
     return {
-        houseSheet: trimmedHousesSheet,
-        autosSheet: trimmedAutosSheet
+        housesSheet: housesSheet,
+        autosSheet: autosSheet
     }
 }
 

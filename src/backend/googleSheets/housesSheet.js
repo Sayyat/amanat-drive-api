@@ -2,7 +2,7 @@ const {googleSheets} = require("./googleSheetsAuth")
 
 async function getHousesSheet(){
     const sheets = googleSheets()
-    // console.log(sheets)
+    console.log(sheets)
     const response = await sheets.spreadsheets.values.batchGet({
         spreadsheetId: process.env.HOUSES_SHEET_ID,
         ranges: [
@@ -39,4 +39,24 @@ async function getHousesSheet(){
     return response.data.valueRanges
 }
 
-export {getHousesSheet}
+
+async function getTrimmedHousesSheet() {
+    const sheet = await getHousesSheet()
+    let needSheet = []
+    sheet.map(list => {
+        let needList = []
+        list.values.map(row => {
+            needList.push({
+                index: row[0] || "",
+                contractNumber: row[1] || "",
+                date: row[3] || "",
+                fullname: row[13] || "",
+                longIin: row[4] || "",
+                shortIin: row[14] || "",
+            })
+        })
+        needSheet.push(needList)
+    })
+    return needSheet
+}
+export {getTrimmedHousesSheet}
