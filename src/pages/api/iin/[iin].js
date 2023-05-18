@@ -1,9 +1,9 @@
-import {findByIin} from "@/backend/google";
+import {findTablesByIin} from "@/backend/google";
 
 export default async function handler(req, res){
     const {iin} = req.query
 
-    const result = await findByIin(iin)
+    const result = await findTablesByIin(iin)
 
     res.json(result)
 }

@@ -85,7 +85,18 @@ function listContainsIin(list, iin) {
     return false
 }
 
-async function findByIin(iin) {
+
+function getUserDataFromListByIin(list, iin) {
+    let result = []
+    for (const i in list) {
+        let row = list[i]
+        if (row.longIin === iin)
+            result.push(row)
+    }
+    return result
+}
+
+async function findTablesByIin(iin) {
     const sheet = await getTrimmedSheet();
     const needSheet = []
     for (const i in sheet) {
@@ -98,4 +109,16 @@ async function findByIin(iin) {
 }
 
 
-export {findByIin}
+async function findUserByIin(iin) {
+    const sheet = await getTrimmedSheet();
+    let userDataEntries = []
+    for (const i in sheet) {
+        let list = sheet[i]
+        userDataEntries = [...userDataEntries, ...getUserDataFromListByIin(list, iin)]
+    }
+
+    return userDataEntries
+}
+
+
+export {findTablesByIin, findUserByIin}
