@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-
 import LinesEllipsis from "react-lines-ellipsis";
-
-import logo from "../../assets/images/logo-dark.png";
 import { click } from "../../store/slices/burgerSlice";
 import logout from "../../assets/images/logout.png";
 import styles from "./header.module.scss";
