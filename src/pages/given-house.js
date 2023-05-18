@@ -3,14 +3,14 @@ import Header from "@/components/Header";
 import Menu from "@/components/Menu";
 import Table from "@/components/Table";
 
-export default function GivenAuto() {
+export default function GivenHouse() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const asyncGivenAutos = async () => {
-      const response = await fetch(`/api/iin/givenAutos`);
-      const { autosSheet } = await response.json();
-      setData(autosSheet);
+      const response = await fetch(`/api/iin/givenHouses`);
+      const { housesSheet } = await response.json();
+      setData(housesSheet);
     };
     asyncGivenAutos();
   }, []);

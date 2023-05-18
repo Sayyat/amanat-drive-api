@@ -40,4 +40,24 @@ async function getAutosSheet(){
 }
 
 
-export {getAutosSheet}
+
+async function getTrimmedAutosSheet() {
+    const sheet = await getAutosSheet()
+    let needSheet = []
+    sheet.map(list => {
+        let needList = []
+        list.values.map(row => {
+            needList.push({
+                index: row[0] || "",
+                contractNumber: row[1] || "",
+                date: "",
+                fullname: row[2] || "",
+                longIin: row[4] || "",
+                shortIin: row[4] || "",
+            })
+        })
+        needSheet.push(needList)
+    })
+    return needSheet
+}
+export {getTrimmedAutosSheet}

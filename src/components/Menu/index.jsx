@@ -57,9 +57,9 @@ const Menu = () => {
             <span>Моя очередь</span>
           </Link>
           <Link
-            href="/"
+            href="/given-auto"
             className={
-              router.pathname === "/1"
+              router.pathname === "/given-auto"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
@@ -132,9 +132,9 @@ const Menu = () => {
           </Link>
 
           <Link
-            href="/"
+            href="/given-house"
             className={
-              router.pathname === "/1"
+              router.pathname === "/given-house"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
@@ -196,9 +196,9 @@ const Menu = () => {
           </Link>
 
           <Link
-            href="/"
+            href="/transfer"
             className={
-              router.pathname === "/1"
+              router.pathname === "/transfer"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
