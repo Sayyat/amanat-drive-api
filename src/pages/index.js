@@ -31,29 +31,6 @@ export default function Home() {
             <Table data={tables} iin={iin} />
           </div>
         </div>
-
-      {/* <>
-      <input type="text" onChange={handleInput} />
-      <button onClick={findByIIN}>Find</button>
-
-      {tables.map((table, tableIndex) => (
-        <table key={tableIndex}>
-          {table.map((row, rowIndex) => (
-            <tr key={rowIndex} className={row["longIin"] === iin ? "me" : ""}>
-              <td>{row["index"]}</td>
-              <td>{row["contractNumber"]}</td>
-              <td>{row["date"]}</td>
-              <td>{row["fullname"]}</td>
-              <td>
-                {row["longIin"] === iin
-                  ? row["longIin"]
-                  : row["shortIin"].padStart(12, "#")}
-              </td>
-            </tr>
-          ))}
-        </table>
-      ))}
-    </> */}
     </div>
   );
 }
