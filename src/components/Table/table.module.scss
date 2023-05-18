@@ -1,6 +1,5 @@
 .table {
   display: flex;
-  height: 100%;
   margin-top: 16px;
   padding: 36px 50px;
   background-color: #fff;
@@ -53,7 +52,6 @@
   }
 
   &Wrapper {
-    display: flex;
     width: 100%;
     overflow: auto;
   }
@@ -72,7 +70,6 @@
   grid-gap: 16px;
   justify-items: center;
   width: 100%;
-  margin: auto;
   padding: 50px;
 
   &__title {

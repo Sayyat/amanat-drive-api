@@ -1,9 +1,9 @@
-import {findByIin} from "@/backend/google";
+import {findHouseAndAutoTablesByIin} from "@/backend/googleSheets/sheetsList";
 
 export default async function handler(req, res){
     const {iin} = req.query
 
-    const result = await findByIin(iin)
+    const result = await findHouseAndAutoTablesByIin(iin)
 
     res.json(result)
 }
