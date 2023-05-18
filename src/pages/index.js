@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Menu from "../components/Menu";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
@@ -12,8 +12,8 @@ export default function Home() {
     e.preventDefault();
     const response = await fetch(`/api/iin/${iin}`);
     const result = await response.json();
-    console.log(result);
-    setTables(result);
+    console.log(result.autosSheet);
+    setTables(result.autosSheet);
   };
 
   function handleInput(event) {
@@ -21,39 +21,25 @@ export default function Home() {
     setIin(event.target.value);
   }
 
+  useEffect(() => {
+    const asyncGivenAutos = async () => {
+      const response = await fetch(`/api/iin/givenHouses`);
+      const result = await response.json();
+      console.log("response", result);
+    };
+    asyncGivenAutos();
+  }, []);
+
   return (
-      <div className="wrapper">
-        <Menu />
-        <div className="content">
-          <Header />
-          <div className="content__info">
-            <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
-            <Table data={tables} iin={iin} />
-          </div>
+    <div className="wrapper">
+      <Menu />
+      <div className="content">
+        <Header />
+        <div className="content__info">
+          <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
+          <Table data={tables} iin={iin} />
         </div>
-
-      {/* <>
-      <input type="text" onChange={handleInput} />
-      <button onClick={findByIIN}>Find</button>
-
-      {tables.map((table, tableIndex) => (
-        <table key={tableIndex}>
-          {table.map((row, rowIndex) => (
-            <tr key={rowIndex} className={row["longIin"] === iin ? "me" : ""}>
-              <td>{row["index"]}</td>
-              <td>{row["contractNumber"]}</td>
-              <td>{row["date"]}</td>
-              <td>{row["fullname"]}</td>
-              <td>
-                {row["longIin"] === iin
-                  ? row["longIin"]
-                  : row["shortIin"].padStart(12, "#")}
-              </td>
-            </tr>
-          ))}
-        </table>
-      ))}
-    </> */}
+      </div>
     </div>
   );
 }
