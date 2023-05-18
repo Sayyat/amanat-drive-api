@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
 import Menu from "../components/Menu";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
@@ -6,54 +9,45 @@ import Table from "../components/Table";
 
 export default function Home() {
   const [iin, setIin] = useState("");
-  const [tables, setTables] = useState([]);
+  const [tableAutos, setTableAutos] = useState([]);
+  const [tableHouses, setTableHouses] = useState([]);
 
   const findByIIN = async (e) => {
     e.preventDefault();
     const response = await fetch(`/api/iin/${iin}`);
-    const result = await response.json();
-    console.log(result);
-    setTables(result);
+    const { autosSheet, housesSheet } = await response.json();
+    setTableAutos(autosSheet);
+    setTableHouses(housesSheet);
+
+    console.log(autosSheet);
   };
 
-  function handleInput(event) {
-    event.preventDefault();
-    setIin(event.target.value);
+  function handleInput(e) {
+    e.preventDefault();
+    setIin(e.target.value);
   }
 
   return (
-      <div className="wrapper">
-        <Menu />
-        <div className="content">
-          <Header />
-          <div className="content__info">
-            <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
-            <Table data={tables} iin={iin} />
-          </div>
+    <div className="wrapper">
+      <Menu />
+      <div className="content">
+        <Header />
+        <div className="content__info">
+          <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
+          <Tabs>
+            <TabList>
+              <Tab>Авто</Tab>
+              <Tab>Жилье</Tab>
+            </TabList>
+            <TabPanel>
+              <Table data={tableAutos} iin={iin} />
+            </TabPanel>
+            <TabPanel>
+              <Table data={tableHouses} iin={iin} />
+            </TabPanel>
+          </Tabs>
         </div>
-
-      {/* <>
-      <input type="text" onChange={handleInput} />
-      <button onClick={findByIIN}>Find</button>
-
-      {tables.map((table, tableIndex) => (
-        <table key={tableIndex}>
-          {table.map((row, rowIndex) => (
-            <tr key={rowIndex} className={row["longIin"] === iin ? "me" : ""}>
-              <td>{row["index"]}</td>
-              <td>{row["contractNumber"]}</td>
-              <td>{row["date"]}</td>
-              <td>{row["fullname"]}</td>
-              <td>
-                {row["longIin"] === iin
-                  ? row["longIin"]
-                  : row["shortIin"].padStart(12, "#")}
-              </td>
-            </tr>
-          ))}
-        </table>
-      ))}
-    </> */}
+      </div>
     </div>
   );
 }

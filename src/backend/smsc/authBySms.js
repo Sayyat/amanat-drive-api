@@ -5,41 +5,34 @@ function getRandomConfirmNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min).toString()
 }
 
-function sendMessage(to, isSend) {
-    const message = getRandomConfirmNumber(1000, 10000)
-    // get request
-    // return  await fetch(`https://smsc.kz/sys/send.php?login=sot147&psw=Waka4eka&phones=${to}&mes=${message}`)
-    smsc.configure({
-        login: 'sot147',
-        password: "Waka4eka",
-        ssl: true
-    })
-    // Отправка SMS
-    smsc.send_sms({
-        phones: [to],
-        mes: message
-    }, function (data, raw, err, code) {
-        if (err) {
-            isSend(false)
-            return
+async function sendMessage(to) {
+    let result = false
+    try {
+        const message = getRandomConfirmNumber(1000, 10000)
+        console.log(`try to send ${message} to ${to}`)
+        // get request
+        const response = await fetch(`https://smsc.kz/sys/send.php?login=sot147&psw=Waka4eka&phones=${to}&mes=${message}`)
+
+        if (!existsSync("./confirms")) {
+            mkdirSync("./confirms")
         }
 
-        if (!existsSync("/confirms")) {
-            mkdirSync("/confirms")
-        }
-
-        writeFileSync(`/confirms/${to}`, message)
-        isSend(true)
-    });
+        writeFileSync(`./confirms/${to}`, message)
+        result = true
+    } catch (error) {
+        console.log(error)
+        result = false
+    }
+    return result
 }
 
 
 function authorize(phone, confirmCode) {
-    if (!existsSync(`/confirms/${phone}`)) {
+    if (!existsSync(`./confirms/${phone}`)) {
         return false
     }
-
-    return readFileSync(`/confirms/${phone}`).toString() === confirmCode.toString();
+    const generatedCode = readFileSync(`./confirms/${phone}`).toString()
+    return generatedCode === confirmCode.toString();
 }
 
 export {sendMessage, authorize}
