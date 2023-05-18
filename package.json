@@ -15,10 +15,12 @@
     "eslint-config-next": "13.4.2",
     "google-auth-library": "^8.8.0",
     "googleapis": "^118.0.0",
+    "lodash": "^4.17.21",
     "next": "13.4.2",
     "process": "^0.11.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-lines-ellipsis": "^0.15.3",
     "react-redux": "^8.0.5",
     "sass": "^1.62.1"
   }
