@@ -20,22 +20,28 @@ const Banner = ({ iin, handleInput, findByIIN }) => {
           {pathname === "/given-house" && "Получившие жилье"}
           {pathname === "/transfer" && "Переуступка"}
         </h3>
-        <p>Для поиска введите свой ИИН в поле «ПОИСК»</p>
-        {pathname === "/" && <Search iin={iin} handleInput={handleInput} findByIIN={findByIIN} />}
+        <p>
+          {pathname === "/" && "Для поиска введите свой ИИН в поле «ПОИСК»"}
+          {pathname === "/given-auto" &&
+            "Член паевого товарищества, лицо, внесшее пай для автомобиля"}
+          {pathname === "/given-house" &&
+            "Член паевого товарищества, лицо, внесшее пай для жилья"}
+          {pathname === "/transfer" &&
+            "Уступка прав требования или иного имущества"}
+        </p>
+        {pathname === "/" && (
+          <Search iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
+        )}
       </div>
       <div className={styles.banner__img}>
-      {
-          pathname === "/" && <Image src={banner0} alt="Моя очередь" />
-        }
-        {
-          pathname === "/given-auto" && <Image src={banner1} alt="Получившие авто" />
-        }
-        {
-          pathname === "/given-house" && <Image src={banner2} alt="Получившие жилье" />
-        }
-        {
-          pathname === "/transfer" && <Image src={banner3} alt="Переуступка" />
-        }
+        {pathname === "/" && <Image src={banner0} alt="Моя очередь" />}
+        {pathname === "/given-auto" && (
+          <Image src={banner1} alt="Получившие авто" />
+        )}
+        {pathname === "/given-house" && (
+          <Image src={banner2} alt="Получившие жилье" />
+        )}
+        {pathname === "/transfer" && <Image src={banner3} alt="Переуступка" />}
       </div>
     </div>
   );

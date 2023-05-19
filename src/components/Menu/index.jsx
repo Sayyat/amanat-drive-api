@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { click } from "../../store/slices/burgerSlice";
+import { click, clickLink } from "../../store/slices/burgerSlice";
 import logo from "../../assets/images/logo-dark.png";
 import Image from "next/image";
 import styles from "./menu.module.scss";
@@ -26,6 +26,7 @@ const Menu = () => {
         <nav className={styles.nav}>
           <Link
             href="/"
+            onClick={() => dispatch(clickLink())}
             className={
               router.pathname === "/"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
@@ -58,6 +59,7 @@ const Menu = () => {
           </Link>
           <Link
             href="/given-auto"
+            onClick={() => dispatch(clickLink())}
             className={
               router.pathname === "/given-auto"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
@@ -133,6 +135,7 @@ const Menu = () => {
 
           <Link
             href="/given-house"
+            onClick={() => dispatch(clickLink())}
             className={
               router.pathname === "/given-house"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
@@ -197,6 +200,7 @@ const Menu = () => {
 
           <Link
             href="/transfer"
+            onClick={() => dispatch(clickLink())}
             className={
               router.pathname === "/transfer"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`

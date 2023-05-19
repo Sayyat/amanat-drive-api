@@ -25,7 +25,7 @@ export default function Home() {
 
   console.log("activeTab", activeTab);
 
-  const [isChnageInput, setIsChnageInput] = useState(false);
+  const [isChangeInput, setIsChaneInput] = useState(false);
 
   const findByIIN = async (e) => {
     e.preventDefault();
@@ -33,7 +33,7 @@ export default function Home() {
     const { autosSheet, housesSheet } = await response.json();
     setTableAutos(autosSheet);
     setTableHouses(housesSheet);
-    setIsChnageInput(!isChnageInput);
+    setIsChaneInput(!isChangeInput);
     console.log(autosSheet);
   };
 
