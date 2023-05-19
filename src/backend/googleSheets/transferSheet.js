@@ -13,13 +13,13 @@ async function getTransfersSheet() {
 
 async function getTrimmedTransferSheet() {
     const sheet = await getTransfersSheet()
-    sheet.unshift()
+    sheet.shift()
     let needList = []
     sheet.map(row => {
         needList.push({
             index: row[0] || "",
-            oldSharer: row[1] || "",
-            newSharer: row[2] || "",
+            oldSharer: (row[1] || "").split("/")[0],
+            newSharer: (row[2] || "").split("/")[0],
             date: row[3] || ""
         })
     })

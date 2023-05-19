@@ -44,7 +44,7 @@ async function getTrimmedHousesSheet() {
     const sheet = await getHousesSheet()
     let needSheet = []
     sheet.map(list => {
-        list.values.unshift()
+        list.values.shift()
         let needList = []
         list.values.map(row => {
             needList.push({

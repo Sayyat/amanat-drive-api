@@ -1,3 +1,5 @@
+import {splitName} from "@/backend/googleSheets/nameSplit";
+
 const {googleSheets} = require("./googleSheetsAuth")
 
 async function getGivenAutosSheet() {
@@ -14,14 +16,14 @@ async function getGivenAutosSheet() {
 
 async function getTrimmedGivenAutosSheet() {
     const sheet = await getGivenAutosSheet()
-    sheet.unshift()
+    sheet.shift()
     let needList = []
     sheet.map(row => {
         needList.push({
             index: row[0] || "",
             contractNumber: row[3] || "",
             date: row[2] || "",
-            fullname: row[1] || "",
+            fullname: splitName(row[1]),
             brand: row[4] || "",
             sum: row[6] || ""
         })
