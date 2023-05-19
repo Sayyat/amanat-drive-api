@@ -19,7 +19,6 @@ const TableTransfer = ({ data }) => {
                 <td>1</td>
                 <td>Ф.И.О. выбывающего пайщика</td>
                 <td>Ф.И.О. нового пайщика</td>
-                <td>Таблица</td>
                 <td>Дата</td>
               </tr>
             </thead>
