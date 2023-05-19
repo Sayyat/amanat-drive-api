@@ -12,6 +12,7 @@ export default function Home() {
   const [tableAutos, setTableAutos] = useState([]);
   const [tableHouses, setTableHouses] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
+  const [isChangeInput, setIsChangeInput] = useState(false);
 
   useEffect(() => {
     tableAutos.length <= 0 && setActiveTab(1);
@@ -23,18 +24,13 @@ export default function Home() {
     setActiveTab(index);
   };
 
-  console.log("activeTab", activeTab);
-
-  const [isChangeInput, setIsChaneInput] = useState(false);
-
   const findByIIN = async (e) => {
     e.preventDefault();
     const response = await fetch(`/api/iin/${iin}`);
     const { autosSheet, housesSheet } = await response.json();
     setTableAutos(autosSheet);
     setTableHouses(housesSheet);
-    setIsChaneInput(!isChangeInput);
-    console.log(autosSheet);
+    setIsChangeInput(!isChangeInput);
   };
 
   function handleInput(e) {
