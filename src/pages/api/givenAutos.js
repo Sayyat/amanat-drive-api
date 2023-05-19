@@ -1,6 +1,6 @@
-import {getGivenAutosSheet} from "@/backend/googleSheets/givenAutosSheet";
+import {getTrimmedGivenAutosSheet} from "@/backend/googleSheets/givenAutosSheet";
 
 export default async function handler(req, res){
-    const result = await getGivenAutosSheet()
+    const result = await getTrimmedGivenAutosSheet()
     res.json(result)
 }

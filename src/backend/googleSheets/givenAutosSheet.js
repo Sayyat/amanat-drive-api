@@ -14,22 +14,18 @@ async function getGivenAutosSheet() {
 
 async function getTrimmedGivenAutosSheet() {
     const sheet = await getGivenAutosSheet()
-    let needSheet = []
-    sheet.map(list => {
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                contractNumber: row[3] || "",
-                date: row[2] || "",
-                fullname: row[1] || "",
-                brand: row[4] || "",
-                sum: row[6] || ""
-            })
+    let needList = []
+    sheet.map(row => {
+        needList.push({
+            index: row[0] || "",
+            contractNumber: row[3] || "",
+            date: row[2] || "",
+            fullname: row[1] || "",
+            brand: row[4] || "",
+            sum: row[6] || ""
         })
-        needSheet.push(needList)
     })
-    return needSheet
+    return needList
 }
 
 
