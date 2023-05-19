@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
-import Menu from "@/components/Menu";
-import Table from "@/components/Table";
+import Banner from "@/components/Banner";
+import TableGivenHouses from "@/components/Table/TableGivenHouses";
 
 export default function GivenHouse() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const asyncGivenHouses = async () => {
-      const response = await fetch(`/api/iin/givenHouses`);
-      const { housesSheet } = await response.json();
-      setData(housesSheet);
+      const response = await fetch(`/api/givenHouses`);
+      const result = await response.json();
+      console.log("TableGivenHouses",result)
+      setData(result);
     };
     asyncGivenHouses();
   }, []);
 
   return (
-    <div className="wrapper">
-      <Menu />
-      <div className="content">
-        <Header />
-        <div className="content__info">
-          <Table data={data} />
-        </div>
+    <div className="content">
+      <Header />
+      <div className="content__info">
+        <Banner />
+        <TableGivenHouses data={data} />
       </div>
     </div>
   );

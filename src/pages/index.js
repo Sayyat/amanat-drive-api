@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import Menu from "../components/Menu";
 import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Table from "../components/Table";
+import TableLoader from "@/components/TableLoader";
 
 export default function Home() {
   const [iin, setIin] = useState("");
   const [tableAutos, setTableAutos] = useState([]);
   const [tableHouses, setTableHouses] = useState([]);
+  const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    tableAutos.length <= 0 && setActiveTab(1);
+    tableHouses.length <= 0 && setActiveTab(0);
+    tableAutos.length > 0 && tableAutos.length > 0 && setActiveTab(0);
+  }, [tableAutos, tableHouses]);
+
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+  };
+
+  console.log("activeTab", activeTab);
 
   const [isChnageInput, setIsChnageInput] = useState(false);
 
@@ -20,7 +33,7 @@ export default function Home() {
     const { autosSheet, housesSheet } = await response.json();
     setTableAutos(autosSheet);
     setTableHouses(housesSheet);
-    setIsChnageInput(!isChnageInput)
+    setIsChnageInput(!isChnageInput);
     console.log(autosSheet);
   };
 
@@ -30,25 +43,23 @@ export default function Home() {
   }
 
   return (
-    <div className="wrapper">
-      <Menu />
-      <div className="content">
-        <Header />
-        <div className="content__info">
-          <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
-          <Tabs>
-            <TabList>
-              <Tab>Авто</Tab>
-              <Tab>Жилье</Tab>
-            </TabList>
-            <TabPanel>
-              <Table data={tableAutos} iin={iin} />
-            </TabPanel>
-            <TabPanel>
-              <Table data={tableHouses} iin={iin} />
-            </TabPanel>
-          </Tabs>
-        </div>
+    <div className="content">
+      <Header />
+      <div className="content__info">
+        <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
+        <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+          <TabList>
+            <Tab>Авто</Tab>
+            <Tab>Жилье</Tab>
+          </TabList>
+          <TabPanel>
+            <Table data={tableAutos} iin={iin} />
+          </TabPanel>
+          <TabPanel>
+            <Table data={tableHouses} iin={iin} />
+          </TabPanel>
+        </Tabs>
+        <TableLoader />
       </div>
     </div>
   );

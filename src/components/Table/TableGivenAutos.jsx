@@ -1,10 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import empty from "../../assets/images/empty.svg";
-
 import styles from "./table.module.scss";
 
-const Table = ({ data, iin }) => {
+const TableGivenAutos = ({ data, iin }) => {
 
   return (
 
@@ -28,7 +27,7 @@ const Table = ({ data, iin }) => {
                   <td>{row["date"]}</td>
                   <td>{row["fullname"]}</td>
                   <td>
-                    {row["iin"]}
+                    {row["brand"]}
                   </td>
                 </tr>
               ))}
@@ -40,4 +39,4 @@ const Table = ({ data, iin }) => {
   );
 };
 
-export default Table;
+export default TableGivenAutos;
