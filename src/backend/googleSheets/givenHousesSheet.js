@@ -13,6 +13,7 @@ async function getGivenHousesSheet() {
 
 async function getTrimmedGivenHousesSheet() {
     const sheet = await getGivenHousesSheet()
+    sheet.unshift()
     let needList = []
     sheet.map(row => {
         needList.push({

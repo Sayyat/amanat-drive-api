@@ -13,6 +13,7 @@ async function getTransfersSheet() {
 
 async function getTrimmedTransferSheet() {
     const sheet = await getTransfersSheet()
+    sheet.unshift()
     let needList = []
     sheet.map(row => {
         needList.push({

@@ -45,6 +45,7 @@ async function getTrimmedAutosSheet() {
     const sheet = await getAutosSheet()
     let needSheet = []
     sheet.map(list => {
+        list.values.unshift()
         let needList = []
         list.values.map(row => {
             needList.push({
