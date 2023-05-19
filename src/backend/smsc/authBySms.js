@@ -11,7 +11,7 @@ async function sendMessage(to) {
         const message = getRandomConfirmNumber(1000, 10000)
         console.log(`try to send ${message} to ${to}`)
         // get request
-        const response = await fetch(`https://smsc.kz/sys/send.php?login=sot147&psw=Waka4eka&phones=${to}&mes=${message}`)
+        const response = await fetch(`https://smsc.kz/sys/send.php?login=sot147&psw=Waka4eka&phones=${to}&mes=${message}&whatsapp=1`)
 
         if (!existsSync("./confirms")) {
             mkdirSync("./confirms")

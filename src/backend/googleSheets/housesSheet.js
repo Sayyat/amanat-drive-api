@@ -1,3 +1,5 @@
+import {splitName} from "@/backend/googleSheets/nameSplit";
+
 const {googleSheets} = require("./googleSheetsAuth")
 
 async function getHousesSheet(){
@@ -50,7 +52,7 @@ async function getTrimmedHousesSheet() {
                 index: row[0] || "",
                 contractNumber: row[1] || "",
                 date: row[3] || "",
-                fullname: row[13] || "",
+                fullname: splitName(row[13]),
                 iin: row[4] || ""
             })
         })
