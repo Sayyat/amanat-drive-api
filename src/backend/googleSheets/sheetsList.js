@@ -9,7 +9,7 @@ function compareAndShortenIin(list, iin) {
     if (row.iin === iin){
       logic = true
     } else {
-      row.iin = row.iin.substring(6).padStart(12, "#")
+      row.iin = row.iin.substring(0,7).padEnd(12, "#")
     }
   }
   return logic;
