@@ -7,12 +7,12 @@ export default function GivenHouse() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const asyncGivenAutos = async () => {
+    const asyncGivenHouses = async () => {
       const response = await fetch(`/api/iin/givenHouses`);
       const { housesSheet } = await response.json();
       setData(housesSheet);
     };
-    asyncGivenAutos();
+    asyncGivenHouses();
   }, []);
 
   return (
