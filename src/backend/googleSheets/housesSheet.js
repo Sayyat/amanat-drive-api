@@ -51,8 +51,7 @@ async function getTrimmedHousesSheet() {
                 contractNumber: row[1] || "",
                 date: row[3] || "",
                 fullname: row[13] || "",
-                longIin: row[4] || "",
-                shortIin: row[14] || "",
+                iin: row[4] || ""
             })
         })
         needSheet.push(needList)

@@ -35,13 +35,17 @@ async function findTablesByIin(sheet, iin) {
 }
 
 
-async function findHouseAndAutoTablesByIin(){
-    const housesSheet = await getTrimmedHousesSheet();
-    const autosSheet = await getTrimmedAutosSheet();
+async function findHouseAndAutoTablesByIin(iin){
+    const allHousesSheet = await getTrimmedHousesSheet();
+    const allAutosSheet = await getTrimmedAutosSheet();
+
+    const housesSheet = getUserDataFromListByIin(allHousesSheet, iin)
+    const autosSheet = getUserDataFromListByIin(allAutosSheet, iin)
     return {
         housesSheet: housesSheet,
         autosSheet: autosSheet
     }
 }
+
 
 export {findHouseAndAutoTablesByIin}

@@ -52,8 +52,7 @@ async function getTrimmedAutosSheet() {
                 contractNumber: row[1] || "",
                 date: "",
                 fullname: row[2] || "",
-                longIin: row[4] || "",
-                shortIin: row[4] || "",
+                iin: row[4] || ""
             })
         })
         needSheet.push(needList)
