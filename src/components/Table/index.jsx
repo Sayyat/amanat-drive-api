@@ -21,16 +21,14 @@ const Table = ({ data, iin }) => {
               {table.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className={row["longIin"] === iin ? styles.me : ""}
+                  className={row["iin"] === iin ? styles.me : ""}
                 >
                   <td>{row["index"]}</td>
                   <td>{row["contractNumber"]}</td>
                   <td>{row["date"]}</td>
                   <td>{row["fullname"]}</td>
                   <td>
-                    {row["longIin"] === iin
-                      ? row["longIin"]
-                      : row["shortIin"].padStart(12, "#")}
+                    {row["iin"]}
                   </td>
                 </tr>
               ))}

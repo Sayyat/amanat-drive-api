@@ -161,9 +161,6 @@ a {
       width: 100%;
       background-image: url('/assets/images/gradient.png');
       border-radius: 30px;
-      &-logo {
-
-      }
       &-text {
         display: flex;
         flex-direction: column;
@@ -242,10 +239,11 @@ a {
       letter-spacing: .03em;
       width: 100%;
       padding: 20px;
+      color: #fff;
+      margin-top: 36px;
+      background-color: #e92d45;
       border-radius: 18px;
       border: none;
-      color: #fff;
-      background-color: #e92d45;
       cursor: pointer;
       transition: opacity .2s ease-in-out;
 
