@@ -21,4 +21,4 @@ function googleSheets() {
 
 }
 
-export {googleSheets}
+module.exports = {googleSheets}

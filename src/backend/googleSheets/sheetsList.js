@@ -6,7 +6,7 @@ import {getTrimmedAutosSheet} from "@/backend/googleSheets/autosSheet";
 function listContainsIin(list, iin) {
     for (const i in list) {
         let row = list[i]
-        if (row.longIin === iin)
+        if (row.iin === iin)
             return true
     }
     return false
@@ -17,13 +17,13 @@ function getUserDataFromListByIin(list, iin) {
     let result = []
     for (const i in list) {
         let row = list[i]
-        if (row.longIin === iin)
+        if (row.iin === iin)
             result.push(row)
     }
     return result
 }
 
-async function findTablesByIin(sheet, iin) {
+function findTablesByIin(sheet, iin) {
     const needSheet = []
     for (const i in sheet) {
         let list = sheet[i]
@@ -39,8 +39,8 @@ async function findHouseAndAutoTablesByIin(iin){
     const allHousesSheet = await getTrimmedHousesSheet();
     const allAutosSheet = await getTrimmedAutosSheet();
 
-    const housesSheet = getUserDataFromListByIin(allHousesSheet, iin)
-    const autosSheet = getUserDataFromListByIin(allAutosSheet, iin)
+    const housesSheet = findTablesByIin(allHousesSheet, iin)
+    const autosSheet = findTablesByIin(allAutosSheet, iin)
     return {
         housesSheet: housesSheet,
         autosSheet: autosSheet
