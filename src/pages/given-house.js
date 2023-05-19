@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import TableGivenHouses from "@/components/Table/TableGivenHouses";
+import TableLoader from "@/components/TableLoader";
 
 export default function GivenHouse() {
   const [data, setData] = useState([]);
@@ -21,7 +22,7 @@ export default function GivenHouse() {
       <Header />
       <div className="content__info">
         <Banner />
-        <TableGivenHouses data={data} />
+        {data.length <= 0 ? <TableLoader /> : <TableGivenHouses data={data} />}
       </div>
     </div>
   );

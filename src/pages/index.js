@@ -47,20 +47,22 @@ export default function Home() {
       <Header />
       <div className="content__info">
         <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
-        {
-          tableAutos.length <= 0 && tableAutos.length <= 0 ? <TableLoader /> :         <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
-          <TabList>
-            <Tab>Авто</Tab>
-            <Tab>Жилье</Tab>
-          </TabList>
-          <TabPanel>
-            <Table data={tableAutos} iin={iin} />
-          </TabPanel>
-          <TabPanel>
-            <Table data={tableHouses} iin={iin} />
-          </TabPanel>
-        </Tabs>
-        }
+        {tableAutos.length <= 0 && tableHouses.length <= 0 ? (
+          <TableLoader />
+        ) : (
+          <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+            <TabList>
+              <Tab>Авто</Tab>
+              <Tab>Жилье</Tab>
+            </TabList>
+            <TabPanel>
+              <Table data={tableAutos} iin={iin} />
+            </TabPanel>
+            <TabPanel>
+              <Table data={tableHouses} iin={iin} />
+            </TabPanel>
+          </Tabs>
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import Image from "next/image";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 
-const TableGivenHouses = ({ data }) => {
+const TableTransfer = ({ data }) => {
   return (
     <div className={styles.table}>
       <div className={styles.tableWrapper}>
@@ -41,4 +41,4 @@ const TableGivenHouses = ({ data }) => {
   );
 };
 
-export default TableGivenHouses;
+export default TableTransfer;

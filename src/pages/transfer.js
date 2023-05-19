@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
-import Table from "@/components/Table";
 import Banner from "@/components/Banner";
+import TableLoader from "@/components/TableLoader";
+import TableTransfer from "@/components/Table/TableTransfer";
 
 export default function Transfer() {
   const [data, setData] = useState([]);
@@ -10,7 +11,7 @@ export default function Transfer() {
     const asyncGivenAutos = async () => {
       const response = await fetch(`/api/transfer`);
       const result = await response.json();
-      // setData(autosSheet);
+      setData(result);
       console.log("result", result);
     };
     asyncGivenAutos();
@@ -21,7 +22,7 @@ export default function Transfer() {
       <Header />
       <div className="content__info">
         <Banner />
-        <Table data={data} />
+        { data.length <= 0 ? <TableLoader /> : <TableTransfer data={data} /> }
       </div>
     </div>
   );
