@@ -19,8 +19,8 @@ async function getTrimmedTransferSheet() {
     sheet.map(row => {
         needList.push({
             index: row[0] || "",
-            oldSharer: splitName(row[1]),
-            newSharer: splitName(row[2]),
+            oldSharer: splitName(row[1] || ""),
+            newSharer: splitName(row[2] || ""),
             date: row[4] || ""
         })
     })

@@ -1,9 +1,32 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image';
 import logo from '../assets/images/logo.png';
 import carAndHome from '../assets/images/car-home.png';
 
 const Login = () => {
+  const [phone, setPhone] = useState("")
+  const [confirmCode, setConfirmCode] = useState("")
+  const [iin, setIin] = useState("")
+
+  function sendCode(event){
+    event.preventDefault()
+    console.log({phone})
+    fetch("/api/sendCode",{
+      method: "POST",
+      body: JSON.stringify({phone})
+    })
+  }
+
+  async function register(event){
+    event.preventDefault()
+    const response = await fetch("/api/register",{
+      method: "POST",
+      body: JSON.stringify({phone, confirmCode})
+    })
+
+    console.log(response)
+  }
+
   return (
     <div className="auth">
       <div className="auth__banner auth-banner">
@@ -12,7 +35,7 @@ const Login = () => {
           <Image src={carAndHome} className="auth-banner__content-img" alt="car and home" />
           <div className="auth-banner__content-text">
             <h2>Пайызсыз өмір сүр</h2>
-            <p>У вас нету аккаунта? Зарегистрировайтесть</p>
+            <p>У вас нету аккаунта? Зарегистрируйтесть</p>
           </div>
         </div>
       </div>
@@ -23,26 +46,24 @@ const Login = () => {
           </h3>
           <div className="auth-form__fields">
             <div className="auth-form__field field">
-              <div className="field__title">E-mail</div>
-              <input type="email" className="field__input" placeholder="Введите email" />
+              <div className="field__title">Номер</div>
+              <input type="number" className="field__input" placeholder="Введите Whatsapp номер" onChange={(event) => {setPhone(event.target.value)}}/>
             </div>
+            <button className="auth-form__btn" onClick={sendCode}>
+              Отправить код
+            </button>
+          </div>
+          <br/>
+          <div className="auth-form__fields">
             <div className="auth-form__field field">
-              <div className="field__title">Пароль</div>
-              <input type="email" className="field__input" placeholder="Введите пароль" />
+              <div className="field__title">Код подтверждения</div>
+              <input type="number" className="field__input" placeholder="Введите Whatsapp номер"/>
             </div>
+            <button className="auth-form__btn" onClick={register}>
+              Авторизоваться
+            </button>
           </div>
-          <div className="auth-form__options">
-            <div className="save">
-              <input type="checkbox" />
-              <span>Сохранить меня</span>
-            </div>
-            <div className="forgot">
-              Забыли пароль?
-            </div>
-          </div>
-          <button className="auth-form__btn" onSubmit>
-            Войти
-          </button>
+
         </from>
       </div>
     </div>
