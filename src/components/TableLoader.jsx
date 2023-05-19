@@ -2,6 +2,7 @@ import React from 'react'
 import ContentLoader  from 'react-content-loader'
 
 const TableLoader = props => (
+  <div style={{backgroundColor: "#fff", marginTop: "24px", borderRadius: "20px"}}>
   <ContentLoader
     width={1000}
     height={550}
@@ -62,6 +63,7 @@ const TableLoader = props => (
     <rect x="782" y="56" rx="3" ry="3" width="72" height="33" />
     <rect x="933" y="54" rx="3" ry="3" width="24" height="33" />
   </ContentLoader>
+  </div>
 )
 
 TableLoader.metadata = {

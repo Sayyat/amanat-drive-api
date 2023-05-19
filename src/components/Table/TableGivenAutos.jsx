@@ -3,7 +3,7 @@ import Image from "next/image";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 
-const TableGivenAutos = ({ data, iin }) => {
+const TableGivenAutos = ({ data }) => {
 
   return (
 
@@ -20,15 +20,14 @@ const TableGivenAutos = ({ data, iin }) => {
               {table.map((row, rowIndex) => (
                 <tr
                   key={rowIndex}
-                  className={iin && row["iin"] === iin ? styles.me : ""}
+                  // className={iin && row["iin"] === iin ? styles.me : ""}
                 >
                   <td>{row["index"]}</td>
                   <td>{row["contractNumber"]}</td>
                   <td>{row["date"]}</td>
                   <td>{row["fullname"]}</td>
-                  <td>
-                    {row["brand"]}
-                  </td>
+                  <td>{row["brand"]}</td>
+                  <td>{row["sum"]}</td>
                 </tr>
               ))}
             </table>

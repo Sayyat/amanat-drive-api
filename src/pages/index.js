@@ -47,7 +47,8 @@ export default function Home() {
       <Header />
       <div className="content__info">
         <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN} />
-        <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+        {
+          tableAutos.length <= 0 && tableAutos.length <= 0 ? <TableLoader /> :         <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
           <TabList>
             <Tab>Авто</Tab>
             <Tab>Жилье</Tab>
@@ -59,7 +60,7 @@ export default function Home() {
             <Table data={tableHouses} iin={iin} />
           </TabPanel>
         </Tabs>
-        <TableLoader />
+        }
       </div>
     </div>
   );
