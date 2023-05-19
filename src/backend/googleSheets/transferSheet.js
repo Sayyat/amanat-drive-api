@@ -19,7 +19,7 @@ async function getTrimmedTransferSheet() {
             index: row[0] || "",
             oldSharer: (row[1] || "").split("/")[0],
             newSharer: (row[2] || "").split("/")[0],
-            date: row[3] || ""
+            date: row[4] || ""
         })
     })
     return needList
