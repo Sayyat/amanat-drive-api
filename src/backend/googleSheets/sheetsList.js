@@ -1,8 +1,6 @@
 import {getTrimmedHousesSheet} from "@/backend/googleSheets/housesSheet";
 import {getTrimmedAutosSheet} from "@/backend/googleSheets/autosSheet";
 
-
-
 function listContainsIin(list, iin) {
     for (const i in list) {
         let row = list[i]
@@ -11,7 +9,6 @@ function listContainsIin(list, iin) {
     }
     return false
 }
-
 
 function getUserDataFromListByIin(list, iin) {
     let result = []

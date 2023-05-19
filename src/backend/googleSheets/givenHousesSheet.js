@@ -11,4 +11,24 @@ async function getGivenHousesSheet(){
     return response.data.values
 }
 
-export {getGivenHousesSheet}
+async function getTrimmedGivenHousesSheet() {
+    const sheet = await getGivenHousesSheet()
+    let needSheet = []
+    sheet.map(list => {
+        let needList = []
+        list.values.map(row => {
+            needList.push({
+                index: row[0] || "",
+                contractNumber: row[3] || "",
+                date: row[2] || "",
+                fullname: row[1] || "",
+                sum: row[5] || ""
+            })
+        })
+        needSheet.push(needList)
+    })
+    return needSheet
+}
+
+
+export {getTrimmedGivenHousesSheet}
