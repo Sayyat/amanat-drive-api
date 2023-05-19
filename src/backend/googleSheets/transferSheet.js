@@ -1,28 +1,27 @@
 const {googleSheets} = require("./googleSheetsAuth")
 
-async function getGivenHousesSheet(){
+async function getTransfersSheet() {
     const sheets = googleSheets()
     // console.log(sheets)
     const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.GIVEN_HOUSES_SHEET_ID,
-        range: "ПОЛУЧИВШИЕ ЖИЛЬЕ"
+        spreadsheetId: process.env.TRANSFER_SHEET_ID,
+        range: "ПЕРЕУСТУПКА"
     });
 
     return response.data.values
 }
 
-async function getTrimmedGivenHousesSheet() {
-    const sheet = await getGivenHousesSheet()
+async function getTrimmedTransferSheet() {
+    const sheet = await getTransfersSheet()
     let needSheet = []
     sheet.map(list => {
         let needList = []
         list.values.map(row => {
             needList.push({
                 index: row[0] || "",
-                contractNumber: row[3] || "",
-                date: row[2] || "",
-                fullname: row[1] || "",
-                sum: row[5] || ""
+                oldSharer: row[1] || "",
+                newSharer: row[2] || "",
+                date: row[3] || ""
             })
         })
         needSheet.push(needList)
@@ -30,5 +29,4 @@ async function getTrimmedGivenHousesSheet() {
     return needSheet
 }
 
-
-export {getTrimmedGivenHousesSheet}
+export {getTrimmedTransferSheet}
