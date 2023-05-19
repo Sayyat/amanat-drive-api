@@ -20,4 +20,4 @@ function googleSheets() {
 
 }
 
-module.exports = {googleSheets}
+export {googleSheets}

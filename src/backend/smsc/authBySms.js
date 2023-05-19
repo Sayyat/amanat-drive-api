@@ -1,4 +1,3 @@
-const smsc = require("./smsc_api")
 const {mkdirSync, writeFileSync, readFileSync, existsSync} = require("fs")
 
 function getRandomConfirmNumber(min, max) {
