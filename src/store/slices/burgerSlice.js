@@ -9,8 +9,11 @@ const burgerSlice = createSlice({
     click(state) {
       state.value = !state.value;
     },
+    clickLink(state) {
+      state.value = false;
+    },
   },
 });
 
-export const { click } = burgerSlice.actions;
+export const { click, clickLink } = burgerSlice.actions;
 export default burgerSlice.reducer;

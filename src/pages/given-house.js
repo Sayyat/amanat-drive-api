@@ -11,7 +11,6 @@ export default function GivenHouse() {
     const asyncGivenHouses = async () => {
       const response = await fetch(`/api/givenHouses`);
       const result = await response.json();
-      console.log("TableGivenHouses",result)
       setData(result);
     };
     asyncGivenHouses();

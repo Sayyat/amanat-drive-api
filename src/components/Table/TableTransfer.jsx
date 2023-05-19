@@ -17,20 +17,19 @@ const TableTransfer = ({ data }) => {
             <thead>
               <tr>
                 <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+                <td>Ф.И.О. выбывающего пайщика</td>
+                <td>Ф.И.О. нового пайщика</td>
+                <td>Таблица</td>
+                <td>Дата</td>
               </tr>
             </thead>
             <tbody>
               {data.map((row, rowIndex) => (
                 <tr key={rowIndex}>
                   <td>{row["index"]}</td>
-                  <td>{row["contractNumber"]}</td>
+                  <td>{row["oldSharer"]}</td>
+                  <td>{row["newSharer"]}</td>
                   <td>{row["date"]}</td>
-                  <td>{row["fullname"]}</td>
-                  <td>{row["sum"]}</td>
                 </tr>
               ))}
             </tbody>
