@@ -12,8 +12,6 @@ const Header = () => {
   const { pathname } = useRouter();
   const dispatch = useDispatch();
 
-  console.log("router", pathname);
-
   const handleBurger = () => {
     dispatch(click());
   };
@@ -56,7 +54,7 @@ const Header = () => {
         <h2 className={styles.pageTitle}>
           {pathname === "/" && (
             <LinesEllipsis
-              text="Пайщики автомобилей"
+              text="Моя очередь"
               maxLine="2"
               ellipsis="..."
               trimRight

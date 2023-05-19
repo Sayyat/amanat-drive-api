@@ -12,13 +12,15 @@ export default function Home() {
   const [tableAutos, setTableAutos] = useState([]);
   const [tableHouses, setTableHouses] = useState([]);
 
+  const [isChnageInput, setIsChnageInput] = useState(false);
+
   const findByIIN = async (e) => {
     e.preventDefault();
     const response = await fetch(`/api/iin/${iin}`);
     const { autosSheet, housesSheet } = await response.json();
     setTableAutos(autosSheet);
     setTableHouses(housesSheet);
-
+    setIsChnageInput(!isChnageInput)
     console.log(autosSheet);
   };
 
