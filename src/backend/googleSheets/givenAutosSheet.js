@@ -14,6 +14,7 @@ async function getGivenAutosSheet() {
 
 async function getTrimmedGivenAutosSheet() {
     const sheet = await getGivenAutosSheet()
+    sheet.unshift()
     let needList = []
     sheet.map(row => {
         needList.push({
