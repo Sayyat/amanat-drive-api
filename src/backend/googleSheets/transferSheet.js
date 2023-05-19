@@ -13,20 +13,16 @@ async function getTransfersSheet() {
 
 async function getTrimmedTransferSheet() {
     const sheet = await getTransfersSheet()
-    let needSheet = []
-    sheet.map(list => {
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                oldSharer: row[1] || "",
-                newSharer: row[2] || "",
-                date: row[3] || ""
-            })
+    let needList = []
+    sheet.map(row => {
+        needList.push({
+            index: row[0] || "",
+            oldSharer: row[1] || "",
+            newSharer: row[2] || "",
+            date: row[3] || ""
         })
-        needSheet.push(needList)
     })
-    return needSheet
+    return needList
 }
 
 export {getTrimmedTransferSheet}

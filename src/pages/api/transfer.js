@@ -1,6 +1,6 @@
-import {getTransfersSheet} from "@/backend/googleSheets/transferSheet";
+import {getTrimmedTransferSheet} from "@/backend/googleSheets/transferSheet";
 
 export default async function handler(req, res) {
-    const result = await getTransfersSheet()
+    const result = await getTrimmedTransferSheet()
     res.json(result)
 }

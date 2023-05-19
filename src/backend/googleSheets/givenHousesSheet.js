@@ -1,10 +1,10 @@
 const {googleSheets} = require("./googleSheetsAuth")
 
-async function getGivenHousesSheet(){
+async function getGivenHousesSheet() {
     const sheets = googleSheets()
     // console.log(sheets)
     const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.GIVEN_HOUSES_SHEET_ID,
+        spreadsheetId: process.env.GIVEN_HOUSES_SHEET_ID,
         range: "ПОЛУЧИВШИЕ ЖИЛЬЕ"
     });
 
@@ -13,21 +13,17 @@ async function getGivenHousesSheet(){
 
 async function getTrimmedGivenHousesSheet() {
     const sheet = await getGivenHousesSheet()
-    let needSheet = []
-    sheet.map(list => {
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                contractNumber: row[3] || "",
-                date: row[2] || "",
-                fullname: row[1] || "",
-                sum: row[5] || ""
-            })
+    let needList = []
+    sheet.map(row => {
+        needList.push({
+            index: row[0] || "",
+            contractNumber: row[3] || "",
+            date: row[2] || "",
+            fullname: row[1] || "",
+            sum: row[5] || ""
         })
-        needSheet.push(needList)
     })
-    return needSheet
+    return needList
 }
 
 

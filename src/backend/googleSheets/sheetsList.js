@@ -1,10 +1,6 @@
-<<<<<<< HEAD
+
 import { getTrimmedHousesSheet } from "@/backend/googleSheets/housesSheet";
 import { getTrimmedAutosSheet } from "@/backend/googleSheets/autosSheet";
-=======
-import {getTrimmedHousesSheet} from "@/backend/googleSheets/housesSheet";
-import {getTrimmedAutosSheet} from "@/backend/googleSheets/autosSheet";
->>>>>>> server
 
 function listContainsIin(list, iin) {
   for (const i in list) {
