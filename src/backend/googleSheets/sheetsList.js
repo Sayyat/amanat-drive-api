@@ -3,11 +3,16 @@ import { getTrimmedHousesSheet } from "@/backend/googleSheets/housesSheet";
 import { getTrimmedAutosSheet } from "@/backend/googleSheets/autosSheet";
 
 function listContainsIin(list, iin) {
+  let logic = false
   for (const i in list) {
     let row = list[i];
-    if (row.iin === iin) return true;
+    if (row.iin === iin){
+      logic = true
+    } else {
+      row.iin = row.iin.substring(6).padStart(12, "#")
+    }
   }
-  return false;
+  return logic;
 }
 
 function getUserDataFromListByIin(list, iin) {
