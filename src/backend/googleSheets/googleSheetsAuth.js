@@ -13,7 +13,6 @@ function googleSheets() {
             'https://www.googleapis.com/auth/spreadsheets',
         ],
     });
-// console.log(auth);
     return google.sheets({
         auth,
         version: 'v4',

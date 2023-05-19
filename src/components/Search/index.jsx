@@ -1,8 +1,7 @@
 import React from "react";
-import styles from './search.module.scss'
+import styles from "./search.module.scss";
 
-const Search = ({iin, handleInput, findByIIN}) => {
-  console.log("iin", iin)
+const Search = ({ iin, handleInput, findByIIN }) => {
   return (
     <form onSubmit={findByIIN} className={styles.search}>
       <input
@@ -12,7 +11,7 @@ const Search = ({iin, handleInput, findByIIN}) => {
         onChange={handleInput}
         placeholder="Поиск..."
       />
-            <button type="submit">
+      <button type="submit">
         <svg
           width="24"
           height="24"

@@ -12,7 +12,6 @@ export default function Transfer() {
       const response = await fetch(`/api/transfer`);
       const result = await response.json();
       setData(result);
-      console.log("result", result);
     };
     asyncGivenAutos();
   }, []);

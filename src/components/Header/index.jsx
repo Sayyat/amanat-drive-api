@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import LinesEllipsis from "react-lines-ellipsis";
-
 import { click } from "../../store/slices/burgerSlice";
 import logout from "../../assets/images/logout.png";
 import styles from "./header.module.scss";

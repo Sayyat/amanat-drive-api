@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
 import Search from "../Search";
 import banner0 from "../../assets/images/banner/banner-0.png";
 import banner1 from "../../assets/images/banner/banner-1.png";

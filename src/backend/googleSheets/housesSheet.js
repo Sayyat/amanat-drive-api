@@ -2,7 +2,6 @@ const {googleSheets} = require("./googleSheetsAuth")
 
 async function getHousesSheet(){
     const sheets = googleSheets()
-    // console.log(sheets)
     const response = await sheets.spreadsheets.values.batchGet({
         spreadsheetId: process.env.HOUSES_SHEET_ID,
         ranges: [
@@ -65,5 +64,4 @@ async function getTrimmedHousesSheet() {
     return needSheet
 }
 
-// getTrimmedHousesSheet()
 export {getTrimmedHousesSheet}
