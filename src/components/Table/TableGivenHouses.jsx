@@ -16,11 +16,11 @@ const TableGivenHouses = ({ data }) => {
           <table>
             <thead>
               <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
+                <td>№</td>
+                <td>№ паенакопления</td>
+                <td>Дата сделки</td>
+                <td>Ф.И.О.</td>
+                <td>Сумма</td>
               </tr>
             </thead>
             <tbody>

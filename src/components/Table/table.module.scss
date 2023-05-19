@@ -18,15 +18,18 @@
 
   table {
     width: 100%;
-    
-    tr {
-      position: relative;
-      opacity: .8;
-      &:first-child {
+
+    thead {
+      tr {
         font-weight: 600;
         background-color: #f1f3f6;
         opacity: 1;
       }
+    }
+    
+    tr {
+      position: relative;
+      opacity: .8;
       &:not(:first-of-type ) {
         &::after {
           content: "";
