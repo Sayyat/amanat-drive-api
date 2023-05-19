@@ -1,6 +1,6 @@
 const {googleSheets} = require("./googleSheetsAuth")
 
-async function getAutosSheet(){
+async function getAutosSheet() {
     const sheets = googleSheets()
     // console.log(sheets)
     const response = await sheets.spreadsheets.values.batchGet({
@@ -40,7 +40,6 @@ async function getAutosSheet(){
 }
 
 
-
 async function getTrimmedAutosSheet() {
     const sheet = await getAutosSheet()
     let needSheet = []
@@ -56,8 +55,13 @@ async function getTrimmedAutosSheet() {
                 iin: row[4] || ""
             })
         })
-        needSheet.push(needList)
+        let listName = list.range.split("!")[0]
+        needSheet.push({
+            listName: listName.substring(1, listName.length - 1),
+            data: needList
+        })
     })
     return needSheet
 }
+
 export {getTrimmedAutosSheet}

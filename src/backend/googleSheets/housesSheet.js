@@ -55,7 +55,12 @@ async function getTrimmedHousesSheet() {
                 iin: row[4] || ""
             })
         })
-        needSheet.push(needList)
+
+        let listName = list.range.split("!")[0]
+        needSheet.push({
+            listName: listName.substring(1, listName.length - 1),
+            data: needList
+        })
     })
     return needSheet
 }

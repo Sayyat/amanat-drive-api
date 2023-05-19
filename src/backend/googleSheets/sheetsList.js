@@ -23,7 +23,7 @@ function findTablesByIin(sheet, iin) {
   const needSheet = [];
   for (const i in sheet) {
     let list = sheet[i];
-    if (listContainsIin(list, iin)) needSheet.push(list);
+    if (listContainsIin(list.data, iin)) needSheet.push(list);
   }
 
   return needSheet;
