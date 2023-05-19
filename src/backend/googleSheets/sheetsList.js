@@ -2,7 +2,7 @@
 import { getTrimmedHousesSheet } from "@/backend/googleSheets/housesSheet";
 import { getTrimmedAutosSheet } from "@/backend/googleSheets/autosSheet";
 
-function listContainsIin(list, iin) {
+function compareAndShortenIin(list, iin) {
   let logic = false
   for (const i in list) {
     let row = list[i];
@@ -28,7 +28,7 @@ function findTablesByIin(sheet, iin) {
   const needSheet = [];
   for (const i in sheet) {
     let list = sheet[i];
-    if (listContainsIin(list.data, iin)) needSheet.push(list);
+    if (compareAndShortenIin(list.data, iin)) needSheet.push(list);
   }
 
   return needSheet;
