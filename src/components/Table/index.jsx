@@ -21,7 +21,7 @@ const Table = ({ data, iin }) => {
                   <tr>
                     <td>№</td>
                     <td>№ договора</td>
-                    <td>ДАТА ЗАКЛЮЧ.</td>
+                    {/*<td>ДАТА ЗАКЛЮЧ.</td>*/}
                     <td>Ф.И.О.</td>
                     <td>ИИН</td>
                   </tr>
@@ -34,7 +34,7 @@ const Table = ({ data, iin }) => {
                     >
                       <td>{row["index"]}</td>
                       <td>{row["contractNumber"]}</td>
-                      <td>{row["date"]}</td>
+                      {/*<td>{row["date"]}</td>*/}
                       <td>{row["fullname"]}</td>
                       <td>{row["iin"]}</td>
                     </tr>
