@@ -5,22 +5,13 @@ import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Table from "../components/Table";
 import TableLoader from "@/components/TableLoader";
-import {useRouter} from "next/navigation";
 
 export default function Home() {
-  const router = useRouter()
   const [iin, setIin] = useState("");
   const [tableAutos, setTableAutos] = useState([]);
   const [tableHouses, setTableHouses] = useState([]);
   const [activeTab, setActiveTab] = useState(0);
   const [isChangeInput, setIsChangeInput] = useState(false);
-
-  useEffect(() => {
-    // check if user authorized
-    if(localStorage.getItem("authorized") === "0"){
-      router.push('/login');
-    }
-  }, [])
 
 
   useEffect(() => {

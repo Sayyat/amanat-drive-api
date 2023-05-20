@@ -20,7 +20,7 @@ const Banner = ({ iin, handleInput, findByIIN }) => {
           {pathname === "/transfer" && "Переуступка"}
         </h3>
         <p>
-          {pathname === "/" && "Для поиска введите свой ИИН в поле «ПОИСК»"}
+          {pathname === "/" && "Для поиска введите свой ИИН или Ф.И.О. в поле «ПОИСК»"}
           {pathname === "/given-auto" &&
             "Член паевого товарищества, лицо, внесшее пай для автомобиля"}
           {pathname === "/given-house" &&

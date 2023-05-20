@@ -2,9 +2,9 @@ import React, { Fragment } from "react";
 import ContentLoader from "react-content-loader";
 
 const TableLoader = () => {
-  const rows = 6
+  const rows = 6;
   const rowHeight = 60;
-  const content =  new Array(rows).fill(" ")
+  const content = new Array(rows).fill(" ");
 
   return (
     <div
@@ -16,7 +16,10 @@ const TableLoader = () => {
         paddingBottom: "20px",
       }}
     >
-      <ContentLoader uniqueKey={"myLoader"} viewBox={`0 0 1500 ${rowHeight * rows}`}>
+      <ContentLoader
+        uniqueKey={"myLoader"}
+        viewBox={`0 0 1500 ${rowHeight * rows}`}
+      >
         {content.map((el, index) => {
           const contentVerticalPosition = (contentHeight) =>
             rows > 1 ? contentHeight + rowHeight * index : contentHeight;
