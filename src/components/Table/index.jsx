@@ -30,7 +30,7 @@ const Table = ({ data, iin }) => {
                   {table?.data.map((row, rowIndex) => (
                     <tr
                       key={rowIndex}
-                      className={iin && row["iin"] === iin ? styles.me : ""}
+                      className={row["isMe"] === true ? styles.me : ""}
                     >
                       <td>{row["index"]}</td>
                       <td>{row["contractNumber"]}</td>
