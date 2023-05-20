@@ -365,11 +365,16 @@ a {
       font-size: 24px;
       font-weight: 500;
       text-align: center;
+      border: 2px solid transparent;
 
       @media (max-width: 1250px) {
         font-size: 16px;
       }
     }
+  }
+  &__error {
+    font-size: 14px;
+    color: #e92d45;
   }
 }
 

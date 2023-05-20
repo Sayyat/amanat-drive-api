@@ -12,11 +12,12 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [confirmCode, setConfirmCode] = useState("");
   const [step, setStep] = useState("initial");
+  const [isErrorCode, setIsErrorCode] = useState(false);
 
   const formattedPhoneNumber = phone.replace(/\D/g, "");
   const finalPhoneNumber = "+" + formattedPhoneNumber;
 
-  console.log("phoneDecode", finalPhoneNumber)
+  console.log("phoneDecode", finalPhoneNumber);
 
   const sendCode = async (e) => {
     e.preventDefault();
@@ -45,10 +46,16 @@ const Login = () => {
       if (res.status === 200) {
         localStorage.setItem("authorized", "1");
         router.push("/");
+      } else if (res.status === 400) {
+        setIsErrorCode(true);
       }
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleFocus = () => {
+    setIsErrorCode(false);
   };
 
   return (
@@ -118,7 +125,13 @@ const Login = () => {
                     placeholder="____"
                     value={confirmCode}
                     onChange={(e) => setConfirmCode(e.target.value)}
+                    onFocus={handleFocus}
+                    style={isErrorCode ? {borderColor: "#e92d45"} : {}}
                   />
+                  {isErrorCode && 
+                  <div className="field__error">
+                    Неверный код. Попробуйте еще раз
+                  </div>}
                 </div>
                 <button className="auth-form__btn" onClick={register}>
                   Авторизоваться
