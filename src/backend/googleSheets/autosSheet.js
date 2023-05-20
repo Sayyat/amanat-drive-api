@@ -52,7 +52,7 @@ async function getTrimmedAutosSheet() {
                 index: row[0] || "",
                 contractNumber: row[1] || "",
                 date: "",
-                fullname: splitName(row[2] || ""),
+                fullname: row[2] || "",
                 iin: row[4] || ""
             })
         })

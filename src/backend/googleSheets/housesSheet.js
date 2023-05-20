@@ -52,7 +52,7 @@ async function getTrimmedHousesSheet() {
                 index: row[0] || "",
                 contractNumber: row[1] || "",
                 date: row[3] || "",
-                fullname: splitName(row[13] || ""),
+                fullname: row[2] || "",
                 iin: row[4] || ""
             })
         })
