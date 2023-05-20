@@ -40,7 +40,7 @@ const Login = () => {
         body: JSON.stringify({ finalPhoneNumber, confirmCode }),
       });
 
-      if (res.status === 400) {
+      if (res.status === 200) {
         localStorage.setItem("authorized", "1");
         push("/");
       }
