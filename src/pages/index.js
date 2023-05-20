@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     // check if user authorized
-    if(localStorage.getItem("authorized") === "1"){
+    if(localStorage.getItem("authorized") === "0"){
       router.push('/login');
     }
   }, [])
