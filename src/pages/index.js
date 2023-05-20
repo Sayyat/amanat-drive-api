@@ -15,13 +15,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
   const [isChangeInput, setIsChangeInput] = useState(false);
 
-  useEffect(() => {
-    // check if user authorized
-    if(localStorage.getItem("authorized") === "1"){
-      router.push('/login');
-    }
-  }, [])
-
 
   useEffect(() => {
     tableAutos.length <= 0 && setActiveTab(1);
