@@ -7,6 +7,7 @@ export default async function handler(req, res) {
         body = JSON.parse(body)
 
     const {phone, confirmCode} = body
+    console.log({phone, confirmCode})
     const isAuthorized = authorize(phone, confirmCode)
     res.status(isAuthorized ? 200 : 400).json({isAuthorized})
 }

@@ -3,17 +3,24 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import LinesEllipsis from "react-lines-ellipsis";
-import { click } from "../../store/slices/burgerSlice";
-import logout from "../../assets/images/logout.png";
+import { click } from "@/store/slices/burgerSlice";
+import logoutImage from "../../assets/images/logout.png";
 import styles from "./header.module.scss";
 
 const Header = () => {
-  const { pathname } = useRouter();
+  const router = useRouter();
+  const { pathname } = router
   const dispatch = useDispatch();
 
   const handleBurger = () => {
     dispatch(click());
   };
+
+  const logout = (event) => {
+    event.preventDefault()
+    localStorage.removeItem("authorized")
+    router.push("/login")
+  }
 
   return (
     <header className={styles.header}>
@@ -89,9 +96,9 @@ const Header = () => {
           )}
         </h2>
       </div>
-      <div className={styles.logout}>
+      <div className={styles.logout} onClick={logout}>
         <span>Выйти</span>
-        <Image src={logout} alt="logout" />
+        <Image src={logoutImage} alt="logout" />
       </div>
     </header>
   );
