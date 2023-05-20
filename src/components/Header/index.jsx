@@ -8,19 +8,18 @@ import logoutImage from "../../assets/images/logout.png";
 import styles from "./header.module.scss";
 
 const Header = () => {
-  const router = useRouter();
-  const { pathname } = router
+  const { push, pathname } = useRouter();
   const dispatch = useDispatch();
 
   const handleBurger = () => {
     dispatch(click());
   };
 
-  const logout = (event) => {
-    event.preventDefault()
-    localStorage.removeItem("authorized")
-    router.push("/login")
-  }
+  const logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("authorized");
+    push("/login");
+  };
 
   return (
     <header className={styles.header}>

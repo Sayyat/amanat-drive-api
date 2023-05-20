@@ -6,13 +6,13 @@ import Menu from "@/components/Menu";
 import "@/styles/globals.scss";
 
 export default function App({ Component, pageProps }) {
-  const  {push, pathname } = useRouter();
+  const { push, pathname } = useRouter();
 
   useEffect(() => {
-    if(!localStorage.getItem("authorized")){
-      push('/login');
+    if (!localStorage.getItem("authorized")) {
+      push("/login");
     }
-  }, [])
+  }, []);
 
   return (
     <Provider store={store}>

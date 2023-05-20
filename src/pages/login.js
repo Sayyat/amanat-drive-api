@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import InputMask from "react-input-mask";
-
 import logo from "../assets/images/logo.png";
 import carAndHome from "../assets/images/car-home.png";
-import { useRouter } from "next/navigation";
 
 const Login = () => {
   const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-  const router = useRouter();
+  const { push } = useRouter();
   const [phone, setPhone] = useState("");
   const [confirmCode, setConfirmCode] = useState("");
   const [step, setStep] = useState("initial");
@@ -16,8 +15,6 @@ const Login = () => {
 
   const formattedPhoneNumber = phone.replace(/\D/g, "");
   const finalPhoneNumber = "+" + formattedPhoneNumber;
-
-  console.log("phoneDecode", finalPhoneNumber);
 
   const sendCode = async (e) => {
     e.preventDefault();
@@ -43,10 +40,11 @@ const Login = () => {
         body: JSON.stringify({ finalPhoneNumber, confirmCode }),
       });
 
-      if (res.status === 200) {
+      if (res.status === 400) {
         localStorage.setItem("authorized", "1");
-        router.push("/");
-      } else if (res.status === 400) {
+        push("/");
+      }
+      if (res.status === 400) {
         setIsErrorCode(true);
       }
     } catch (e) {
@@ -126,12 +124,13 @@ const Login = () => {
                     value={confirmCode}
                     onChange={(e) => setConfirmCode(e.target.value)}
                     onFocus={handleFocus}
-                    style={isErrorCode ? {borderColor: "#e92d45"} : {}}
+                    style={isErrorCode ? { borderColor: "#e92d45" } : {}}
                   />
-                  {isErrorCode && 
-                  <div className="field__error">
-                    Неверный код. Попробуйте еще раз
-                  </div>}
+                  {isErrorCode && (
+                    <div className="field__error">
+                      Неверный код. Попробуйте еще раз
+                    </div>
+                  )}
                 </div>
                 <button className="auth-form__btn" onClick={register}>
                   Авторизоваться

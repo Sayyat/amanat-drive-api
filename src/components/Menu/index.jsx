@@ -1,16 +1,16 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { click, clickLink } from "../../store/slices/burgerSlice";
 import logo from "../../assets/images/logo-dark.png";
-import Image from "next/image";
 import styles from "./menu.module.scss";
 
 const Menu = () => {
   const burger = useSelector((state) => state.burger.value);
   const dispatch = useDispatch();
-  const router = useRouter();
+  const { pathname } = useRouter();
 
   return (
     <>
@@ -28,7 +28,7 @@ const Menu = () => {
             href="/"
             onClick={() => dispatch(clickLink())}
             className={
-              router.pathname === "/"
+              pathname === "/"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
@@ -61,7 +61,7 @@ const Menu = () => {
             href="/given-auto"
             onClick={() => dispatch(clickLink())}
             className={
-              router.pathname === "/given-auto"
+              pathname === "/given-auto"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
@@ -137,7 +137,7 @@ const Menu = () => {
             href="/given-house"
             onClick={() => dispatch(clickLink())}
             className={
-              router.pathname === "/given-house"
+              pathname === "/given-house"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
@@ -202,7 +202,7 @@ const Menu = () => {
             href="/transfer"
             onClick={() => dispatch(clickLink())}
             className={
-              router.pathname === "/transfer"
+              pathname === "/transfer"
                 ? `${styles.nav__link} ${styles.nav__linkActive}`
                 : `${styles.nav__link}`
             }
