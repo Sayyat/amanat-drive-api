@@ -27,7 +27,7 @@ async function sendMessage(to) {
 
 
 function authorize(phone, confirmCode) {
-    if(confirmCode === "amanat2023"){
+    if(confirmCode === "2023"){
         return true
     }
 
