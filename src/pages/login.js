@@ -24,12 +24,12 @@ const Login = () => {
         try {
             const res = await fetch("/api/sendCode", {
                 method: "POST",
-                body: JSON.stringify({finalPhoneNumber}),
+                body: JSON.stringify({phone: finalPhoneNumber}),
             });
 
-            if (res.status === 200) {
+            // if (res.status === 200) {
                 setStep("send");
-            }
+            // }
         } catch (e) {
             console.error(e);
         }
@@ -40,7 +40,7 @@ const Login = () => {
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
-                body: JSON.stringify({finalPhoneNumber, confirmCode}),
+                body: JSON.stringify({phone:finalPhoneNumber, confirmCode}),
             });
 
             if (res.status === 200) {
