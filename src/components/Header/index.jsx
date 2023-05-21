@@ -1,15 +1,21 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import LinesEllipsis from "react-lines-ellipsis";
 import { click } from "@/store/slices/burgerSlice";
 import logoutImage from "../../assets/images/logout.png";
+import phoneImage from "../../assets/images/phone.png";
 import styles from "./header.module.scss";
 
 const Header = () => {
   const { push, pathname } = useRouter();
   const dispatch = useDispatch();
+  const [userData, setUserData] = useState({phone: "", name: "", picture: ""})
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem("userData")))
+  }, [])
+
 
   const handleBurger = () => {
     dispatch(click());
@@ -17,7 +23,7 @@ const Header = () => {
 
   const logout = (e) => {
     e.preventDefault();
-    localStorage.removeItem("authorized");
+    localStorage.removeItem("userData");
     push("/login");
   };
 
@@ -94,6 +100,10 @@ const Header = () => {
             />
           )}
         </h2>
+      </div>
+      <div className={styles.logout} onClick={logout}>
+        <Image className={styles.accountImage} src={userData.picture || phoneImage} width={50} height={50} alt="logout" />
+        <span className={styles.account}>{userData.phone || userData.name}</span>
       </div>
       <div className={styles.logout} onClick={logout}>
         <span>Выйти</span>

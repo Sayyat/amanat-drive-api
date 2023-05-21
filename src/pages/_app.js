@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
   const { push, pathname } = useRouter();
 
   useEffect(() => {
-    if (!localStorage.getItem("authorized")) {
+    if (!localStorage.getItem("userData")) {
       push("/login");
     }
   }, []);
