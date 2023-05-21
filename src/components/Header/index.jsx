@@ -101,7 +101,7 @@ const Header = () => {
           )}
         </h2>
       </div>
-      <div className={styles.logout} onClick={logout}>
+      <div className={styles.logout}>
         <Image className={styles.accountImage} src={userData.picture || phoneImage} width={50} height={50} alt="logout" />
         <span className={styles.account}>{userData.phone || userData.name}</span>
       </div>
