@@ -33,14 +33,14 @@ const Banner = ({ iin, handleInput, findByIIN }) => {
         )}
       </div>
       <div className={styles.banner__img}>
-        {pathname === "/" && <Image src={banner0} alt="Моя очередь" />}
+        {pathname === "/" && <Image src={banner0} alt="Моя очередь" priority="true" />}
         {pathname === "/given-auto" && (
-          <Image src={banner1} alt="Получившие авто" />
+          <Image src={banner1} alt="Получившие авто" priority="true" />
         )}
         {pathname === "/given-house" && (
-          <Image src={banner2} alt="Получившие жилье" />
+          <Image src={banner2} alt="Получившие жилье" priority="true" />
         )}
-        {pathname === "/transfer" && <Image src={banner3} alt="Переуступка" />}
+        {pathname === "/transfer" && <Image src={banner3} alt="Переуступка" priority="true" />}
       </div>
     </div>
   );
