@@ -13,7 +13,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
   const [isChangeInput, setIsChangeInput] = useState(false);
 
-
   useEffect(() => {
     tableAutos.length <= 0 && setActiveTab(1);
     tableHouses.length <= 0 && setActiveTab(0);

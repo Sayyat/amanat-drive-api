@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,11 +6,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { click, clickLink } from "../../store/slices/burgerSlice";
 import logo from "../../assets/images/logo-dark.png";
 import styles from "./menu.module.scss";
+import AccountInfo from "../AccountInfo";
 
 const Menu = () => {
   const burger = useSelector((state) => state.burger.value);
+  const [userData, setUserData] = useState({phone: "", name: "", picture: ""})
   const dispatch = useDispatch();
   const { pathname } = useRouter();
+
+  useEffect(() => {
+    setUserData(JSON.parse(localStorage.getItem("userData")))
+  }, [])
 
   return (
     <>
@@ -21,6 +27,10 @@ const Menu = () => {
       >
         <div className={styles.menuLogo}>
           <Image src={logo} alt="logo" />
+        </div>
+
+        <div className={styles.accountInfo}>
+          <AccountInfo data={userData} />
         </div>
 
         <nav className={styles.nav}>
@@ -57,7 +67,7 @@ const Menu = () => {
             </svg>
             <span>Моя очередь</span>
           </Link>
-          <Link
+          {/* <Link
             href="/given-auto"
             onClick={() => dispatch(clickLink())}
             className={
@@ -131,9 +141,9 @@ const Menu = () => {
               />
             </svg>
             <span>Получившие авто</span>
-          </Link>
+          </Link> */}
 
-          <Link
+          {/* <Link
             href="/given-house"
             onClick={() => dispatch(clickLink())}
             className={
@@ -196,7 +206,7 @@ const Menu = () => {
             </svg>
 
             <span>Получившие жилье</span>
-          </Link>
+          </Link> */}
 
           <Link
             href="/transfer"
