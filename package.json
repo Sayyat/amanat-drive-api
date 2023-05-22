@@ -25,6 +25,7 @@
     "react-dom": "18.2.0",
     "react-input-mask": "^2.0.4",
     "react-lines-ellipsis": "^0.15.3",
+    "react-number-format": "^5.2.2",
     "react-redux": "^8.0.5",
     "react-tabs": "^6.0.1",
     "sass": "^1.62.1",

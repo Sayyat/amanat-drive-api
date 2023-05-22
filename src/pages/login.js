@@ -1,12 +1,11 @@
 import React, {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
-import InputMask from "react-input-mask";
-import logo from "../assets/images/logo.png";
-import carAndHome from "../assets/images/car-home.png";
+import {PatternFormat} from "react-number-format";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
-
+import logo from "../assets/images/logo.png";
+import carAndHome from "../assets/images/car-home.png";
 
 const Login = () => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
@@ -15,7 +14,6 @@ const Login = () => {
     const [confirmCode, setConfirmCode] = useState("");
     const [step, setStep] = useState("initial");
     const [isErrorCode, setIsErrorCode] = useState(false);
-
     const formattedPhoneNumber = phone.replace(/\D/g, "");
     const finalPhoneNumber = "+" + formattedPhoneNumber;
 
@@ -28,7 +26,7 @@ const Login = () => {
             });
 
             // if (res.status === 200) {
-                setStep("send");
+            setStep("send");
             // }
         } catch (e) {
             console.error(e);
@@ -40,9 +38,9 @@ const Login = () => {
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
-                body: JSON.stringify({phone:finalPhoneNumber, confirmCode}),
+                body: JSON.stringify({phone: finalPhoneNumber, confirmCode}),
             });
-
+            if(/^[0-9]+$/)
             if (res.status === 200) {
                 localStorage.setItem("userData", JSON.stringify({phone}));
                 push("/");
@@ -67,10 +65,7 @@ const Login = () => {
         push("/");
     }
 
-    function error() {
-
-    }
-
+    function error() {}
 
     return (
         <div className="auth">
@@ -99,16 +94,14 @@ const Login = () => {
                             <div className="auth-form__fields">
                                 <div className="auth-form__field field">
                                     <div className="field__title">Введите номер телефона</div>
-                                    <InputMask
-                                        mask="+7 (999) 999-99-99"
-                                        maskChar="_"
-                                        className="field__input"
-                                        placeholder="+7 (___) ___-__-__"
-                                        value={phone}
-                                        onChange={(e) => {
-                                            setPhone(e.target.value);
-                                        }}
-                                    />
+                                    <PatternFormat
+                                        format="+7 (###) ###-##-##"
+                                        allowEmptyFormatting
+                                        mask="_"
+                                        className="field__input" placeholder='+7 (___) ___-__-__'
+                                        value={phone} onChange={(e) => {
+                                        setPhone(e.target.value);
+                                    }}/>
                                 </div>
                                 <button
                                     className="auth-form__btn"
@@ -132,11 +125,12 @@ const Login = () => {
                             </p>
                             <div className="auth-form__fields">
                                 <div className="auth-form__field field">
-                                    <InputMask
-                                        mask="9999"
-                                        maskChar="_"
+                                    <PatternFormat
+                                        format="####"
+                                        allowEmptyFormatting
+                                        mask="_"
                                         className="field__input field__inputCode"
-                                        placeholder="____"
+                                        placeholder='____'
                                         value={confirmCode}
                                         onChange={(e) => setConfirmCode(e.target.value)}
                                         onFocus={handleFocus}
