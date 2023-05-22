@@ -1,5 +1,3 @@
-import {splitName} from "@/backend/googleSheets/nameSplit";
-
 const {googleSheets} = require("./googleSheetsAuth")
 
 async function getHousesSheet(){
