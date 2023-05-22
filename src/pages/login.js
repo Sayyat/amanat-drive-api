@@ -11,6 +11,7 @@ import jwtDecode from "jwt-decode";
 const Login = () => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     const {push} = useRouter();
+    const [timestamp, setTimestamp] = useState("");
     const [phone, setPhone] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
     const [step, setStep] = useState("initial");
@@ -22,14 +23,15 @@ const Login = () => {
     const sendCode = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/sendCode", {
+            const response = await fetch("/api/sendCode", {
                 method: "POST",
                 body: JSON.stringify({phone: finalPhoneNumber}),
             });
 
-            // if (res.status === 200) {
-                setStep("send");
-            // }
+            const {timestamp} = await response.json()
+            setTimestamp(timestamp)
+            setStep("send");
+
         } catch (e) {
             console.error(e);
         }
@@ -40,7 +42,7 @@ const Login = () => {
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
-                body: JSON.stringify({phone:finalPhoneNumber, confirmCode}),
+                body: JSON.stringify({timestamp, phone: finalPhoneNumber, confirmCode}),
             });
 
             if (res.status === 200) {
