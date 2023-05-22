@@ -10,11 +10,21 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+  &AccountInfo {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+
+    @media (max-width: 1250px) {
+      display: none;
+    }
+  }
 }
 
 .logout {
   display: flex;
   align-items: center;
+  white-space: nowrap;
   cursor: pointer;
 
   span {
@@ -50,11 +60,14 @@
 }
 
 .account {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   color: #e92d45;
 }
 
 .accountImage{
+  width: 46px;
+  height: 46px;
   margin: 0 5px;
   border-radius: 50%;
 }
+

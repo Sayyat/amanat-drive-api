@@ -16,6 +16,10 @@
 
   &Logo {
     margin-bottom: 100px;
+
+    @media (max-width: 1250px) {
+      margin-bottom: 60px;
+    }
   }
 
   @media (max-width: 1250px) {
@@ -162,4 +166,29 @@
 
 a.active {
   background-color: #000;
+}
+
+.account {
+  &Info {
+    display: none;
+    margin-bottom: 24px;
+
+    @media (max-width: 1250px) {
+      display: block;
+    }
+
+    div {
+      span {
+        @media (max-width: 1250px) {
+          font-size: 18px;
+        }
+      }
+      img {
+        @media (max-width: 1250px) {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
 }
