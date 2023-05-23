@@ -38,10 +38,10 @@ function extractSharerData(table, rowIndex) {
         contributionPercentage: row[5],
         terminationDate: row[6],
         summary: {
-            entranceFee: row[7],
-            investments: row[8],
-            initialFee: row[9],
-            membershipFee: row[10],
+            entranceFee: parseInt((row[7] || "0").replace(/\s/, "")),
+            investments: parseInt((row[8] || "0").replace(/\s/, "")),
+            initialFee: parseInt((row[9] || "0").replace(/\s/, "")),
+            membershipFee: parseInt((row[10] || "0").replace(/\s/, "")),
         },
         monthly: [],
         isPaid: true
@@ -50,11 +50,11 @@ function extractSharerData(table, rowIndex) {
     rowIndex++
     while (rowIndex < table.length && (table[rowIndex][0] || "").trim().split(" ").length > 1) {
         row = table[rowIndex]
-        let entranceFee = parseInt(row[7] || "0")
-        let investments = parseInt(row[8] || "0")
-        let initialFee = parseInt(row[9] || "0")
-        let membershipFee = parseInt(row[10] || "0")
-        if(entranceFee < 50000 && initialFee < 50000){
+        let entranceFee = parseInt((row[7] || "0").replace(/\s/, ""))
+        let investments = parseInt((row[8] || "0").replace(/\s/, ""))
+        let initialFee = parseInt((row[9] || "0").replace(/\s/, ""))
+        let membershipFee = parseInt((row[10] || "0").replace(/\s/, ""))
+        if (entranceFee < 50000 && initialFee < 50000) {
             data.isPaid = false
         }
         let [day, monthRussian, year] = (row[0] || "").split(" ")
@@ -94,10 +94,10 @@ function extractListData(list) {
         listName: listName.substring(1, listName.length - 1),
         sharers: sharersData,
         summary: {
-            entranceFee: summary[7],
-            investments: summary[8],
-            initialFee: summary[9],
-            membershipFee: summary[10],
+            entranceFee: parseInt((summary[7] || "0").replace(/\s/, "")),
+            investments: parseInt((summary[8] || "0").replace(/\s/, "")),
+            initialFee: parseInt((summary[9] || "0").replace(/\s/, "")),
+            membershipFee: parseInt((summary[10] || "0").replace(/\s/, "")),
         }
     }
 }
