@@ -25,13 +25,16 @@ const TableOneCSingle = ({data}) => {
                                 <td>Дата расторжения</td>
                                 <td>Ф.И.О.</td>
                                 <td>ИИН</td>
+                                <td>Оплачен</td>
                             </tr>
                             </thead>
                             <tbody>
-                            {data.sharers.map((row, rowIndex) => (
+                            {data.sharers.map((row, rowIndex) => {
+                                let rowNum = rowIndex + 1
+                                return (
                                 <Fragment key={rowIndex + row["iin"]}>
                                 <tr>
-                                    <td>{rowIndex}</td>
+                                    <td>{rowNum}</td>
                                     <td>{row["contractNumber"]}</td>
                                     <td>{row["date"]}</td>
                                     <td>{row["fullname"]}</td>
@@ -53,7 +56,7 @@ const TableOneCSingle = ({data}) => {
                                     </tr>
                             ))}
                                 </Fragment>
-                            ))}
+                            )})}
                             {/*<tr key={"summaryRow"}>*/}
                             {/*    <td>{data.summary["buildingPrice"]}</td>*/}
                             {/*    <td>{data.summary["contractNumber"]}</td>*/}

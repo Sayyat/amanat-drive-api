@@ -3,6 +3,8 @@ import Image from "next/image";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 import Link from "next/link";
+import truePaid from '../../assets/images/done.svg'
+// import falsePaid from '../../assets/images/no-check.svg'
 
 const TableOneCAll = ({data}) => {
     return (
@@ -25,12 +27,13 @@ const TableOneCAll = ({data}) => {
                                 <td>Дата расторжения</td>
                                 <td>Ф.И.О.</td>
                                 <td>ИИН</td>
+                                <td>Оплачено</td>
                             </tr>
                             </thead>
                             <tbody>
                             {data.sharers.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
-                                    <td>{rowIndex}</td>
+                                    <td>{rowIndex + 1}</td>
                                     <td>{row["contractNumber"]}</td>
                                     <td>{row["date"]}</td>
                                     <td>{row["fullname"]}</td>
@@ -39,7 +42,7 @@ const TableOneCAll = ({data}) => {
                                         {row["iin"]}
                                     </Link>
                                     </td>
-                                    <td>{row["isPaid"] ? "true" : "false"}</td>
+                                    <td>{row["isPaid"] ? <Image src={truePaid} alt="true check" /> : "---"}</td>
                                 </tr>
                             ))}
                             {/*<tr key={"summaryRow"}>*/}
