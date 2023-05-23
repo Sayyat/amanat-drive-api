@@ -28,9 +28,8 @@ async function getOneCSheet() {
     return response.data.valueRanges
 }
 
-
-function extractSharerData(list, rowIndex){
-    let row = list[rowIndex]
+function extractSharerData(table, rowIndex) {
+    let row = table[rowIndex]
     let data = {
         fullname: row[1],
         iin: row[2],
@@ -38,18 +37,20 @@ function extractSharerData(list, rowIndex){
         buildingPrice: row[4],
         contributionPercentage: row[5],
         terminationDate: row[6],
-        entranceFee: row[7],
-        investments: row[8],
-        initialFee: row[9],
-        membershipFee: row[10],
-        monthly: []
+        summary: {
+            entranceFee: row[7],
+            investments: row[8],
+            initialFee: row[9],
+            membershipFee: row[10],
+        },
+        monthly: [],
+
     }
+    rowIndex++
 
-    rowIndex ++
-
-    while (!numberRegex.test(row[rowIndex])){
-        row = list[rowIndex]
-        let [day, monthRussian, year] = row[1].split(" ")
+    while (rowIndex < table.length && (table[rowIndex][0] || "").trim().split(" ").length > 1) {
+        row = table[rowIndex]
+        let [day, monthRussian, year] = (row[0] || "").split(" ")
         data.monthly.push({
             date: {
                 day,
@@ -61,44 +62,63 @@ function extractSharerData(list, rowIndex){
             initialFee: row[9],
             membershipFee: row[10],
         })
-        rowIndex ++
+        rowIndex++
     }
-
     return data
 }
 
+function extractListData(list) {
+    const values = list.values
+    const summary = values.pop()
+    let sharersData = []
 
-async function getEditedOneCSheet() {
-    const sheet = await getOneCSheet()
-    let needSheet = []
-    sheet.map(list => {
-        const values = list.values
-        const summary = values.pop()
-        let needList = []
-
-        for(let i = 0; i < values.length; i++){
-            let row = values[i]
-            if(numberRegex.test(row[0])) {
-                const sharerData = extractSharerData(list, i)
-                needList.push(sharerData)
-                i += sharerData.monthly.length
-            }
+    for (let i = 5; i < values.length; i++) {
+        let row = values[i]
+        if ((row[0] || "").trim().split(" ").length === 1) {
+            const sharerData = extractSharerData(values, i)
+            sharersData.push(sharerData)
+            i += sharerData.monthly.length
         }
+    }
 
-        let listName = list.range.split("!")[0]
-        needSheet.push({
-            listName: listName.substring(1, listName.length - 1),
-            data: needList,
-            summary:{
-                entranceFee: summary[7],
-                investments: summary[8],
-                initialFee: summary[9],
-                membershipFee: summary[10],
-            }
-        })
-    })
-    return needSheet
+    let listName = list.range.split("!")[0]
+    return {
+        listName: listName.substring(1, listName.length - 1),
+        sharers: sharersData,
+        summary: {
+            entranceFee: summary[7],
+            investments: summary[8],
+            initialFee: summary[9],
+            membershipFee: summary[10],
+        }
+    }
 }
 
+async function getEditedOneCSheetData() {
+    const sheet = await getOneCSheet()
+    return {
+        housesSheet: extractListData(sheet[0]),
+        autosSheet: extractListData(sheet[1])
+    }
+}
 
-export {getEditedOneCSheet}
+function searchList(list, searchKey) {
+    return {
+        listName: list.listName,
+        sharers: list.sharers.filter(sharer => {
+            return sharer.iin.includes(searchKey) ||
+                sharer.fullname.toLowerCase().includes(searchKey.toLowerCase())
+        }),
+        summary: list.summary
+    }
+}
+
+async function searchEditedOneCSheet(searchKey) {
+    const data = await getEditedOneCSheetData()
+    return {
+        housesSheet: searchList(data.housesSheet, searchKey),
+        autosSheet: searchList(data.autosSheet, searchKey)
+    }
+}
+
+export {getEditedOneCSheetData, searchEditedOneCSheet}
