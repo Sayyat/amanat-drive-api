@@ -4,13 +4,11 @@ import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import TableLoader from "@/components/TableLoader";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
-import TableOneCAll from "@/components/Table/TableOneCAll";
+import TableOneCSingle from "@/components/Table/TableOneCSingle";
 
 export default function Index(){
     const router = useRouter()
     const {searchKey} = router.query
-
-    console.log(searchKey)
 
     const [data, setData] = useState()
 
@@ -49,18 +47,7 @@ export default function Index(){
                 {tableAutos.length <= 0 && tableHouses.length <= 0 ? (
                     <TableLoader/>
                 ) : (
-                    <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
-                        <TabList>
-                            <Tab>Авто</Tab>
-                            <Tab>Жилье</Tab>
-                        </TabList>
-                        <TabPanel>
-                            <TableOneCAll data={tableAutos}/>
-                        </TabPanel>
-                        <TabPanel>
-                            <TableOneCAll data={tableHouses}/>
-                        </TabPanel>
-                    </Tabs>
+                    <TableOneCSingle data={tableAutos}/>
                 )}
             </div>
         </div>

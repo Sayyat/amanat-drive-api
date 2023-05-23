@@ -1,10 +1,10 @@
-import React from "react";
+import React, {Fragment} from "react";
 import Image from "next/image";
+import Link from "next/link";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
-import Link from "next/link";
 
-const TableOneCAll = ({data}) => {
+const TableOneCSingle = ({data}) => {
     return (
         <div className={styles.table}>
 
@@ -29,7 +29,8 @@ const TableOneCAll = ({data}) => {
                             </thead>
                             <tbody>
                             {data.sharers.map((row, rowIndex) => (
-                                <tr key={rowIndex}>
+                                <Fragment key={rowIndex + row["iin"]}>
+                                <tr>
                                     <td>{rowIndex}</td>
                                     <td>{row["contractNumber"]}</td>
                                     <td>{row["date"]}</td>
@@ -41,6 +42,17 @@ const TableOneCAll = ({data}) => {
                                     </td>
                                     <td>{row["isPaid"] ? "true" : "false"}</td>
                                 </tr>
+
+                                {row["monthly"].map(({date, entranceFee, initialFee, isPaid, membershipFee}, rowIndexM) => (
+                                    <tr key={rowIndexM + date?.day + date?.month + date?.year}>
+                                        <td>{date?.day < 10 ? 0 + date?.day : date?.day}.{date?.month < 10 ? 0 + String(date?.month) : date?.month}.{date?.year}</td>
+                                        <td>{entranceFee}</td>
+                                        <td>{initialFee}</td>
+                                        <td>{membershipFee}</td>
+                                        <td>{isPaid ? "true" : "false"}</td>
+                                    </tr>
+                            ))}
+                                </Fragment>
                             ))}
                             {/*<tr key={"summaryRow"}>*/}
                             {/*    <td>{data.summary["buildingPrice"]}</td>*/}
@@ -49,13 +61,13 @@ const TableOneCAll = ({data}) => {
                             {/*    <td>{data.summary["fullname"]}</td>*/}
                             {/*    <td>{data.summary["iin"]}</td>*/}
                             {/*</tr>*/}
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
                     </div>
-                )}
+                    )}
             </div>
         </div>
     );
 };
 
-export default TableOneCAll;
+export default TableOneCSingle;
