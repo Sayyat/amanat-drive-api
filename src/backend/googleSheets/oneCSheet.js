@@ -44,12 +44,19 @@ function extractSharerData(table, rowIndex) {
             membershipFee: row[10],
         },
         monthly: [],
+        isPaid: true
 
     }
     rowIndex++
-
     while (rowIndex < table.length && (table[rowIndex][0] || "").trim().split(" ").length > 1) {
         row = table[rowIndex]
+        let entranceFee = parseInt(row[7] || "0")
+        let investments = parseInt(row[8] || "0")
+        let initialFee = parseInt(row[9] || "0")
+        let membershipFee = parseInt(row[10] || "0")
+        if(entranceFee < 50000 && initialFee < 50000){
+            data.isPaid = false
+        }
         let [day, monthRussian, year] = (row[0] || "").split(" ")
         data.monthly.push({
             date: {
@@ -57,10 +64,11 @@ function extractSharerData(table, rowIndex) {
                 month: monthsRussian.indexOf(monthRussian) + 1,
                 year
             },
-            entranceFee: row[7],
-            investments: row[8],
-            initialFee: row[9],
-            membershipFee: row[10],
+            entranceFee,
+            investments,
+            initialFee,
+            membershipFee,
+            isPaid: entranceFee >= 50000 || initialFee >= 50000
         })
         rowIndex++
     }
