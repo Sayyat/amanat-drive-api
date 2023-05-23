@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
+import Link from "next/link";
 
 const TableOneCAll = ({data}) => {
     return (
@@ -14,15 +15,14 @@ const TableOneCAll = ({data}) => {
                         <div className={styles.empty__title}>Нет данных</div>
                     </div>
                 ) : (
-                    <div><h3>
-                        {data.listName}
-                    </h3>
+                    <div>
+                        <h3 className={styles.tableTitle}>{data?.listName}</h3>
                         <table>
                             <thead>
                             <tr>
                                 <td>№</td>
-                                <td>Сумма недвижимости</td>
-                                <td>Дата сделки</td>
+                                <td>Договор</td>
+                                <td>Дата расторжения</td>
                                 <td>Ф.И.О.</td>
                                 <td>ИИН</td>
                             </tr>
@@ -30,20 +30,24 @@ const TableOneCAll = ({data}) => {
                             <tbody>
                             {data.sharers.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
-                                    <td>{row["buildingPrice"]}</td>
+                                    <td>{rowIndex}</td>
                                     <td>{row["contractNumber"]}</td>
                                     <td>{row["date"]}</td>
                                     <td>{row["fullname"]}</td>
-                                    <td>{row["iin"]}</td>
+                                    <td><
+                                        Link className={styles.OneCLink} href={`/one-c/${row["iin"]}`}>
+                                        {row["iin"]}
+                                    </Link>
+                                    </td>
                                 </tr>
                             ))}
-                            <tr key={"summaryRow"}>
-                                <td>{data.summary["buildingPrice"]}</td>
-                                <td>{data.summary["contractNumber"]}</td>
-                                <td>{data.summary["date"]}</td>
-                                <td>{data.summary["fullname"]}</td>
-                                <td>{data.summary["iin"]}</td>
-                            </tr>
+                            {/*<tr key={"summaryRow"}>*/}
+                            {/*    <td>{data.summary["buildingPrice"]}</td>*/}
+                            {/*    <td>{data.summary["contractNumber"]}</td>*/}
+                            {/*    <td>{data.summary["date"]}</td>*/}
+                            {/*    <td>{data.summary["fullname"]}</td>*/}
+                            {/*    <td>{data.summary["iin"]}</td>*/}
+                            {/*</tr>*/}
                             </tbody>
                         </table>
                     </div>

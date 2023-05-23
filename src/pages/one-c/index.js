@@ -1,9 +1,12 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import TableLoader from "@/components/TableLoader";
-import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import TableOneCAll from "@/components/Table/TableOneCAll";
+import Search from "@/components/Search";
 
 export default function Index(){
     const [iin, setIin] = useState("");
@@ -38,7 +41,6 @@ export default function Index(){
         e.preventDefault();
         const response = await fetch(`/api/one-c/${iin}`);
         const {autosSheet, housesSheet} = await response.json();
-        console.log({autosSheet})
         setTableAutos(autosSheet);
         setTableHouses(housesSheet);
         setIsChangeInput(!isChangeInput);
