@@ -16,7 +16,7 @@ export default function Home() {
     useEffect(() => {
         tableAutos.length <= 0 && setActiveTab(1);
         tableHouses.length <= 0 && setActiveTab(0);
-        tableAutos.length > 0 && tableAutos.length > 0 && setActiveTab(0);
+        tableAutos.length > 0 && tableHouses.length > 0 && setActiveTab(0);
     }, [tableAutos, tableHouses]);
 
     const handleTabChange = (index) => {

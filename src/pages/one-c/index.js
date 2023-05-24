@@ -8,23 +8,22 @@ import TableLoader from "@/components/TableLoader";
 import TableOneCAll from "@/components/Table/TableOneCAll";
 import Search from "@/components/Search";
 
-export default function Index(){
+export default function Index() {
     const [iin, setIin] = useState("");
     const [tableAutos, setTableAutos] = useState([]);
     const [tableHouses, setTableHouses] = useState([]);
     const [activeTab, setActiveTab] = useState(0);
-    const [isChangeInput, setIsChangeInput] = useState(false);
 
     useEffect(() => {
-        async function loadSheet (){
+        async function loadSheet() {
             const response = await fetch(`/api/one-c`);
             const {autosSheet, housesSheet} = await response.json();
             console.log({autosSheet})
             console.log({housesSheet})
             setTableAutos(autosSheet);
             setTableHouses(housesSheet);
-            setIsChangeInput(!isChangeInput);
         }
+
         loadSheet()
     }, [])
 
@@ -44,7 +43,6 @@ export default function Index(){
         const {autosSheet, housesSheet} = await response.json();
         setTableAutos(autosSheet);
         setTableHouses(housesSheet);
-        setIsChangeInput(!isChangeInput);
     };
 
     function handleInput(e) {
@@ -66,10 +64,10 @@ export default function Index(){
                             <Tab>Жилье</Tab>
                         </TabList>
                         <TabPanel>
-                            <TableOneCAll data={tableAutos}/>
+                            <TableOneCAll data={tableAutos} type="auto" />
                         </TabPanel>
                         <TabPanel>
-                            <TableOneCAll data={tableHouses}/>
+                            <TableOneCAll data={tableHouses} type="house"/>
                         </TabPanel>
                     </Tabs>
                 )}
