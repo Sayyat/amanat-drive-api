@@ -63,7 +63,14 @@ const TableOneCSingle = ({data}) => {
                                     return (
                                         <Fragment key={rowIndex}>
                                             {
-                                                monthly.map(({ date, entranceFee, initialFee, investments, membershipFee, isPaid }, i) => (
+                                                monthly.map(({
+                                                                 date,
+                                                                 entranceFee,
+                                                                 initialFee,
+                                                                 investments,
+                                                                 membershipFee,
+                                                                 isPaid
+                                                             }, i) => (
                                                     <Fragment key={i}>
                                                         <tr>
                                                             <td>{date?.day < 10 ? 0 + date?.day : date?.day}.{date?.month < 10 ? 0 + String(date?.month) : date?.month}.{date?.year}</td>
@@ -71,7 +78,8 @@ const TableOneCSingle = ({data}) => {
                                                             <td>{initialFee}</td>
                                                             <td>{investments}</td>
                                                             <td>{membershipFee}</td>
-                                                            <td>{isPaid ? <Image src={truePaid} alt="true check"/> : <Image src={falsePaid} alt="false check"/>}</td>
+                                                            <td>{isPaid ? <Image src={truePaid} alt="true check"/> :
+                                                                <Image src={falsePaid} alt="false check"/>}</td>
                                                         </tr>
                                                     </Fragment>
 
