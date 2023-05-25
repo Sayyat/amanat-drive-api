@@ -67,7 +67,7 @@ const Menu = () => {
             </svg>
             <span>Моя очередь</span>
           </Link>
-          {/* <Link
+           <Link
             href="/given-auto"
             onClick={() => dispatch(clickLink())}
             className={
@@ -141,9 +141,9 @@ const Menu = () => {
               />
             </svg>
             <span>Получившие авто</span>
-          </Link> */}
+          </Link>
 
-          {/* <Link
+          <Link
             href="/given-house"
             onClick={() => dispatch(clickLink())}
             className={
@@ -206,7 +206,7 @@ const Menu = () => {
             </svg>
 
             <span>Получившие жилье</span>
-          </Link> */}
+          </Link>
 
           <Link
             href="/transfer"
