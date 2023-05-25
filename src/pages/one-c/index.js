@@ -18,8 +18,6 @@ export default function Index() {
         async function loadSheet() {
             const response = await fetch(`/api/one-c`);
             const {autosSheet, housesSheet} = await response.json();
-            console.log({autosSheet})
-            console.log({housesSheet})
             setTableAutos(autosSheet);
             setTableHouses(housesSheet);
         }

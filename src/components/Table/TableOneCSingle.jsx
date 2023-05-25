@@ -6,10 +6,11 @@ import falsePaid from "@/assets/images/no-check.svg";
 import styles from "./table.module.scss";
 
 const TableOneCSingle = ({data}) => {
+    console.log(data)
     return (
         <div className={styles.table}>
 
-            <div className={styles.tableWrapper}>
+            <div className={styles.tableWrapperPerson}>
                 {data.sharers.length <= 0 ? (
                     <div className={styles.empty}>
                         <Image src={empty} alt="Empty"/>
@@ -17,36 +18,67 @@ const TableOneCSingle = ({data}) => {
                     </div>
                 ) : (
                     <>
-                        <div className={styles.infoPersonTable}>
-                            <h3 className={styles.tableTitle}>{data?.listName}</h3>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <td>№</td>
-                                    <td>Ф.И.О.</td>
-                                    <td>ИИН</td>
-                                    <td>Договор</td>
-                                    <td>Пополнено</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {data.sharers.map((row, rowIndex) => {
-                                    let rowNum = rowIndex + 1
-                                    return (
-                                        <tr key={rowIndex + row["iin"]}>
-                                            <td>{rowNum}</td>
-                                            <td>{row["fullname"]}</td>
-                                            <td>{row["iin"]}</td>
-                                            <td>{row["contractNumber"]}</td>
-                                            <td>{row["isPaid"] ? <Image src={truePaid} alt="true check"/> : "---"}</td>
-                                        </tr>
-                                    )
-                                })}
-                                </tbody>
-                            </table>
+                        <h3 className={styles.oneCInfoGridTitle}>Информация о пайщике {data?.listName}</h3>
+                        <div className={styles.oneCInfoGrid}>
+                            {data.sharers.map((row, rowIndex) => {
+                                let rowNum = rowIndex + 1
+                                return (
+                                    <Fragment key={rowIndex + row["iin"]}>
+                                        <div className={styles.oneCInfoGridColumn}>
+                                            <div className={styles.oneCInfoGridColumnCaption}>№</div>
+                                            <div className={styles.oneCInfoGridColumnItem}>{rowNum}</div>
+                                        </div>
+                                        <div className={styles.oneCInfoGridColumn}>
+                                            <div className={styles.oneCInfoGridColumnCaption}>Ф.И.О.</div>
+                                            <div className={styles.oneCInfoGridColumnItem}>{row["fullname"]}</div>
+                                        </div>
+                                        <div className={styles.oneCInfoGridColumn}>
+                                            <div className={styles.oneCInfoGridColumnCaption}>ИИН</div>
+                                            <div className={styles.oneCInfoGridColumnItem}>{row["iin"]}</div>
+                                        </div>
+                                        <div className={styles.oneCInfoGridColumn}>
+                                            <div className={styles.oneCInfoGridColumnCaption}>Договор</div>
+                                            <div className={styles.oneCInfoGridColumnItem}>{row["contractNumber"]}</div>
+                                        </div>
+                                        <div className={styles.oneCInfoGridColumn}>
+                                            <div className={styles.oneCInfoGridColumnCaption}>Пополнено</div>
+                                            <div className={styles.oneCInfoGridColumnItem}>{row["isPaid"] ?
+                                                <Image src={truePaid} alt="true check"/> : "---"}</div>
+                                        </div>
+                                    </Fragment>
+                                )
+                            })}
                         </div>
+                        {/*<div className={styles.infoPersonTable}>*/}
+                        {/*    <h3 className={styles.tableTitle}>{data?.listName}</h3>*/}
+                        {/*    <table>*/}
+                        {/*        <thead>*/}
+                        {/*        <tr>*/}
+                        {/*            <td>№</td>*/}
+                        {/*            <td>Ф.И.О.</td>*/}
+                        {/*            <td>ИИН</td>*/}
+                        {/*            <td>Договор</td>*/}
+                        {/*            <td>Пополнено</td>*/}
+                        {/*        </tr>*/}
+                        {/*        </thead>*/}
+                        {/*        <tbody>*/}
+                        {/*        {data.sharers.map((row, rowIndex) => {*/}
+                        {/*            let rowNum = rowIndex + 1*/}
+                        {/*            return (*/}
+                        {/*                <tr key={rowIndex + row["iin"]}>*/}
+                        {/*                    <td>{rowNum}</td>*/}
+                        {/*                    <td>{row["fullname"]}</td>*/}
+                        {/*                    <td>{row["iin"]}</td>*/}
+                        {/*                    <td>{row["contractNumber"]}</td>*/}
+                        {/*                    <td>{row["isPaid"] ? <Image src={truePaid} alt="true check"/> : "---"}</td>*/}
+                        {/*                </tr>*/}
+                        {/*            )*/}
+                        {/*        })}*/}
+                        {/*        </tbody>*/}
+                        {/*    </table>*/}
+                        {/*</div>*/}
+                        <h3 className={`${styles.oneCInfoGridTitle} ${styles.oneCInfoGridTitleSecond}`}>По месяцам</h3>
                         <div className={styles.monthlyTable}>
-                            <h3 className={styles.tableTitle}>По месяцам</h3>
                             <table>
                                 <thead>
                                 <tr>

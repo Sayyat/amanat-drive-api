@@ -22,10 +22,8 @@ export default function Index() {
                 const {autosSheet, housesSheet} = await res.json();
                 if (type === "auto") {
                     setTableAutos(autosSheet)
-                    console.log(autosSheet)
                 } else {
                     setTableHouses(housesSheet)
-                    console.log(housesSheet)
                 }
             }
         }
@@ -44,7 +42,7 @@ export default function Index() {
     return (<div className="content">
             <Header/>
             <div className="content__info">
-                <button onClick={handleGoBack} className="back-btn"><Image src={backIcon} alt="back icon"></Image><span>Назад</span></button>
+                <button onClick={handleGoBack} className="back-btn"><Image src={backIcon} alt="back icon"></Image><span>Назад к списку</span></button>
                 {tableAutos.length <= 0 && tableHouses.length <= 0 ? (
                     <TableLoader/>
                 ) : (
