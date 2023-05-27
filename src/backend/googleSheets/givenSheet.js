@@ -21,57 +21,41 @@ function filterContains(filterList = [], sharer = {}) {
     }).length > 0
 }
 
+
 function fillMonthlyList(sharers) {
+
+    function addDate(sharer, {day, month, year}) {
+        sharer.monthly.push({
+            date: {
+                day: day,
+                month: month,
+                year: year
+            },
+            entranceFee: 0,
+            investments: 0,
+            initialFee: 0,
+            membershipFee: 0,
+            isPaid: false
+        })
+    }
+
     const today = new Date()
     sharers.forEach(sharer => {
         let monthly = sharer.monthly
         let last = monthly[monthly.length - 1].date
 
-        for (let m = last.month; m <= 12; m++) {
-            sharer.monthly.push({
-                date: {
-                    day: null,
-                    month: m,
-                    year: last.year
-                },
-                entranceFee: 0,
-                investments: 0,
-                initialFee: 0,
-                membershipFee: 0,
-                isPaid: false
-            })
+        for (let m = last.month + 1; m <= 12; m++) {
+            addDate(sharer, {day: null, month: m, year: last.year})
         }
 
-        for (let y = last.year; y < today.getFullYear(); y++) {
+        for (let y = last.year + 1; y < today.getFullYear(); y++) {
             for (let m = 1; m <= 12; m++) {
-                sharer.monthly.push({
-                    date: {
-                        day: null,
-                        month: m,
-                        year: y
-                    },
-                    entranceFee: 0,
-                    investments: 0,
-                    initialFee: 0,
-                    membershipFee: 0,
-                    isPaid: false
-                })
+                addDate(sharer, {day: null, month: m, year: y})
             }
         }
 
         for (let m = 1; m < today.getMonth() + 1; m++) {
-            sharer.monthly.push({
-                date: {
-                    day: null,
-                    month: m,
-                    year: today.getFullYear()
-                },
-                entranceFee: 0,
-                investments: 0,
-                initialFee: 0,
-                membershipFee: 0,
-                isPaid: false
-            })
+            addDate(sharer, {day: null, month: m, year: today.getFullYear()})
         }
     })
     return sharers
@@ -84,8 +68,8 @@ function filterSheet(sheet, filter, searchKey = "") {
             return filterContains(filter, sharer)
 
         return filterContains(filter, sharer)
-            && sharer.iin === searchKey
-            && sharer.fullname.toLowerCase() === searchKey.toLowerCase()
+            && (sharer.iin === searchKey
+                || sharer.fullname.toLowerCase() === searchKey.toLowerCase())
     })
 
     newSharers = fillMonthlyList(newSharers)
