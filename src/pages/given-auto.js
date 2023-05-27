@@ -11,6 +11,7 @@ export default function GivenAuto() {
     const asyncGivenAutos = async () => {
       const response = await fetch(`/api/givenAutos`);
       const result = await response.json();
+      console.log(result)
       setData(result);
     };
     asyncGivenAutos();

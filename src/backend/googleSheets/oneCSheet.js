@@ -48,9 +48,9 @@ function extractSharerData(table, rowIndex) {
         let [day, monthRussian, year] = (row[0] || "").split(" ")
         data.monthly.push({
             date: {
-                day,
+                day: parseInt(day),
                 month: monthsRussian.indexOf(monthRussian) + 1,
-                year
+                year: parseInt(year)
             },
             entranceFee,
             investments,
