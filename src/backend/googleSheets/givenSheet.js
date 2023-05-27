@@ -69,7 +69,7 @@ function filterSheet(sheet, filter, searchKey = "") {
 
         return filterContains(filter, sharer)
             && (sharer.iin === searchKey
-                || sharer.fullname.toLowerCase() === searchKey.toLowerCase())
+                || encodeURI(sharer.fullname.toLowerCase()) === encodeURI(searchKey.toLowerCase()))
     })
 
     newSharers = fillMonthlyList(newSharers)
