@@ -40,22 +40,23 @@ function fillMonthlyList(sharers) {
     }
 
     const today = new Date()
+    const thisYear = today.getFullYear()
+    const thisMonth = today.getMonth() + 1
     sharers.forEach(sharer => {
         let monthly = sharer.monthly
         let last = monthly[monthly.length - 1].date
+        let {year, month} = last
 
-        for (let m = last.month + 1; m <= 12; m++) {
-            addDate(sharer, {day: null, month: m, year: last.year})
-        }
+        if(year === thisYear && month === thisMonth)
+            return
 
-        for (let y = last.year + 1; y < today.getFullYear(); y++) {
-            for (let m = 1; m <= 12; m++) {
-                addDate(sharer, {day: null, month: m, year: y})
+        while (year !== thisYear || month !== thisMonth){
+            month ++
+            if(month === 13){
+                month = 1
+                year ++
             }
-        }
-
-        for (let m = 1; m < today.getMonth() + 1; m++) {
-            addDate(sharer, {day: null, month: m, year: today.getFullYear()})
+            addDate(sharer, {day: null, month, year})
         }
     })
     return sharers
