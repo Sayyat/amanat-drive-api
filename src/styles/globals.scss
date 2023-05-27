@@ -393,9 +393,11 @@ a {
 
   &__info {
     margin-top: 64px;
-
     @media (max-width: 1250px) {
       margin-top: 32px;
+    }
+    @media (max-width: 540px) {
+      margin-top: 0;
     }
   }
 
@@ -404,6 +406,11 @@ a {
     padding-right: 20px;
     margin-left: 0;
   }
+  @media (max-width: 540px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
 }
 
 .react-tabs {
@@ -412,11 +419,13 @@ a {
   &__tab {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
+    padding: 12px 16px;
     color: #8e8d8f;
     &-list {
       display: flex !important;
       justify-content: center !important;
-      border-bottom: 1px solid rgba(51, 51, 51, 0.08) !important;
+      margin-bottom: 0 !important;
+      border-bottom: none !important;
     }
     &--selected {
       background: none !important;
@@ -442,4 +451,45 @@ a {
   display: flex;
   justify-content: center;
   margin: 20px 0
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 12px 14px 12px 12px;
+  outline: none;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 4px 28px #e1e5ec;
+  border-radius: 8px;
+  opacity: 1;
+  transition: opacity .2s ease-out;
+  cursor: pointer;
+
+  @media (max-width: 540px) {
+    padding: 8px 12px 8px 8px;
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  span {
+    font-weight: 600;
+    color: #8e8d8f;
+  }
+  &:hover {
+    opacity: .8;
+  }
 }
