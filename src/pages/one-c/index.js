@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import TableLoader from "@/components/TableLoader";
 import TableOneCAll from "@/components/Table/TableOneCAll";
-import Search from "@/components/Search";
 
 export default function Index() {
     const [iin, setIin] = useState("");
