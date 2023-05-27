@@ -26,22 +26,23 @@ function extractSharerData(table, rowIndex) {
         contributionPercentage: row[5],
         terminationDate: row[6],
         summary: {
-            entranceFee: parseInt((row[7] || "0").replace(/\s/, "")),
-            investments: parseInt((row[8] || "0").replace(/\s/, "")),
-            initialFee: parseInt((row[9] || "0").replace(/\s/, "")),
-            membershipFee: parseInt((row[10] || "0").replace(/\s/, "")),
+            entranceFee: parseInt((row[7] || "0").replace(String.fromCharCode(160), "").replace(/\s/, "")),
+            investments: parseInt((row[8] || "0").replace(String.fromCharCode(160), "").replace(/\s/, "")),
+            initialFee: parseInt((row[9] || "0").replace(String.fromCharCode(160), "").replace(/\s/, "")),
+            membershipFee: parseInt((row[10] || "0").replace(String.fromCharCode(160), "").replace(/\s/, "")),
         },
         monthly: [],
         isPaid: true
 
     }
+
     rowIndex++
     while (rowIndex < table.length && (table[rowIndex][0] || "").trim().split(" ").length > 1) {
         row = table[rowIndex]
-        let entranceFee = parseInt((row[7] || "0").replace(/\s/, ""))
-        let investments = parseInt((row[8] || "0").replace(/\s/, ""))
-        let initialFee = parseInt((row[9] || "0").replace(/\s/, ""))
-        let membershipFee = parseInt((row[10] || "0").replace(/\s/, ""))
+        let entranceFee = parseInt((row[7] || "0").replace(String.fromCharCode(160), "").replace(/\s/, ""))
+        let investments = parseInt((row[8] || "0").replace(String.fromCharCode(160), "").replace(/\s/, ""))
+        let initialFee = parseInt((row[9] || "0").replace(String.fromCharCode(160), "").replace(/\s/, ""))
+        let membershipFee = parseInt((row[10] || "0").replace(String.fromCharCode(160), "").replace(/\s/, ""))
         if (entranceFee < 50000 && initialFee < 50000) {
             data.isPaid = false
         }
