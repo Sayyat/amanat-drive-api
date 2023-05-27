@@ -62,10 +62,10 @@ export default function Index() {
                             <Tab>Жилье</Tab>
                         </TabList>
                         <TabPanel>
-                            <TableOneCAll data={tableAutos} type="auto" />
+                            <TableOneCAll data={tableAutos} type="auto" pathIndex="one-c" />
                         </TabPanel>
                         <TabPanel>
-                            <TableOneCAll data={tableHouses} type="house"/>
+                            <TableOneCAll data={tableHouses} type="house" pathIndex="one-c" />
                         </TabPanel>
                     </Tabs>
                 )}

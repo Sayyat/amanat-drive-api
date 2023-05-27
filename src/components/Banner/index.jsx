@@ -22,14 +22,12 @@ const Banner = ({iin, handleInput, findByIIN}) => {
                 </h3>
                 <p>
                     {pathname === "/" && "Для поиска введите свой ИИН или Ф.И.О. в поле «ПОИСК»"}
-                    {pathname === "/given-auto" &&
-                        "Член паевого товарищества, лицо, внесшее пай для автомобиля"}
-                    {pathname === "/given-house" &&
-                        "Член паевого товарищества, лицо, внесшее пай для жилья"}
+                    {(pathname === "/given-auto" || pathname === "/given-house") &&
+                        "Для поиска введите ИИН или Ф.И.О. в поле «ПОИСК»"}
                     {pathname === "/transfer" &&
                         "Уступка прав требования или иного имущества"}
                 </p>
-                {(pathname === "/" || pathname === "/one-c") && (
+                {(pathname === "/" || pathname === "/one-c" || pathname === "/given-auto" || pathname === "/given-house") && (
                     <Search iin={iin} handleInput={handleInput} findByIIN={findByIIN}/>
                 )}
             </div>

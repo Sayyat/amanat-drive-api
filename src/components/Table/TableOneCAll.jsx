@@ -6,7 +6,9 @@ import falsePaid from "@/assets/images/no-check.svg";
 import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 
-const TableOneCAll = ({data, type}) => {
+const TableOneCAll = ({data, type, pathIndex}) => {
+
+    const isType = type ? {type: type === "auto" ? "auto" : "house"} : {}
     return (
         <div className={`${styles.table} ${styles.tableFlex}`}>
 
@@ -35,8 +37,8 @@ const TableOneCAll = ({data, type}) => {
                                         <td>{rowIndex + 1}</td>
                                         <td>{row["fullname"]}</td>
                                         <td className={styles.OneCTdLink}><
-                                            Link className={styles.OneCLink} href={{ pathname: `/one-c/${row["iin"]}`, query: { type: type === "auto" ? "auto" : "house" } }}>
-                                            {row["iin"]}
+                                            Link className={styles.OneCLink} href={{ pathname: `/${pathIndex}/${row["iin"] ? row["iin"] : row["fullname"]}`, query: isType }}>
+                                            {row["iin"] ? row["iin"] : "Подробнее"}
                                         </Link>
                                         </td>
                                         <td>{row["contractNumber"]}</td>
