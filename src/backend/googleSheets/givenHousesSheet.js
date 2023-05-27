@@ -1,4 +1,4 @@
-import {splitName} from "@/backend/googleSheets/nameSplit";
+import {getEditedOneCSheetData, searchEditedOneCSheet} from "@/backend/googleSheets/oneCSheet";
 
 const {googleSheets} = require("./googleSheetsAuth")
 
@@ -13,21 +13,48 @@ async function getGivenHousesSheet() {
     return response.data.values
 }
 
-async function getTrimmedGivenHousesSheet() {
+async function getFullnameAndIinColumns() {
     const sheet = await getGivenHousesSheet()
     sheet.shift()
     let needList = []
     sheet.map(row => {
         needList.push({
-            index: row[0] || "",
-            contractNumber: row[3] || "",
-            date: row[2] || "",
-            fullname: splitName(row[1]),
-            sum: row[5] || ""
+            fullname: (row[1] || "").trim(),
+            iin: (row[7] || "").trim()
         })
     })
     return needList
 }
 
+function filterContains(filterList = [], sharer = {}) {
+    return filterList.filter(filter => {
+        return filter.fullname.toLowerCase() === sharer.fullname.toLowerCase()
+            || filter.iin === sharer.iin
+    }).length > 0
+}
 
-export {getTrimmedGivenHousesSheet}
+function filterSheet(sheet, filter, searchKey = "") {
+    if (sheet.sharers.length === 0) return []
+    let newSharers = sheet.sharers.filter(sharer => {
+        if (searchKey === "")
+            return filterContains(filter, sharer)
+
+        return filterContains(filter, sharer)
+            && sharer.iin === searchKey
+            && sharer.fullname.toLowerCase() === searchKey.toLowerCase()
+    })
+
+    return {
+        listName : sheet.listName,
+        sharers : newSharers,
+        summary: sheet.summary
+    }
+}
+
+async function searchGivenHousesList(searchKey) {
+    const oneCSheetData = await getEditedOneCSheetData()
+    const filter = await getFullnameAndIinColumns()
+    return filterSheet(oneCSheetData.autosSheet, filter, searchKey)
+}
+
+export {searchGivenHousesList}

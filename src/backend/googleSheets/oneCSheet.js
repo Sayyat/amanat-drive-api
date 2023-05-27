@@ -75,6 +75,7 @@ function extractSharerData(table, rowIndex) {
     return data
 }
 
+
 function extractListData(list) {
     const values = list.values
     const summary = values.pop()
