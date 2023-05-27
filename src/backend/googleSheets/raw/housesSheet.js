@@ -40,30 +40,4 @@ async function getHousesSheet(){
     return response.data.valueRanges
 }
 
-
-async function getTrimmedHousesSheet() {
-    const sheet = await getHousesSheet()
-    let needSheet = []
-    sheet.map(list => {
-        list.values.shift()
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                contractNumber: row[1] || "",
-                date: row[3] || "",
-                fullname: row[2] || "",
-                iin: row[4] || ""
-            })
-        })
-
-        let listName = list.range.split("!")[0]
-        needSheet.push({
-            listName: listName.substring(1, listName.length - 1),
-            data: needList
-        })
-    })
-    return needSheet
-}
-
-export {getTrimmedHousesSheet}
+export {getHousesSheet}

@@ -1,16 +1,5 @@
 import {splitName} from "@/backend/googleSheets/nameSplit";
-
-const {googleSheets} = require("./googleSheetsAuth")
-
-async function getTransfersSheet() {
-    const sheets = googleSheets()
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.TRANSFER_SHEET_ID,
-        range: "ПЕРЕУСТУПКА"
-    });
-
-    return response.data.values
-}
+import {getTransfersSheet} from "@/backend/googleSheets/raw/rawTransferSheet";
 
 async function getTrimmedTransferSheet() {
     const sheet = await getTransfersSheet()

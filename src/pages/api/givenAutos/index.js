@@ -1,4 +1,4 @@
-import {searchGivenAutosList} from "@/backend/googleSheets/givenAutosSheet";
+import {searchGivenAutosList} from "@/backend/googleSheets/givenSheet";
 
 export default async function handler(req, res){
     const result = await searchGivenAutosList()

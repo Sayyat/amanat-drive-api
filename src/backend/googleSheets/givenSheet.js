@@ -1,31 +1,18 @@
-import {getEditedOneCSheetData, searchEditedOneCSheet} from "@/backend/googleSheets/oneCSheet";
+import {getEditedOneCSheetData} from "@/backend/googleSheets/oneCSheet";
+import {getGivenAutosSheet} from "@/backend/googleSheets/raw/givenAutosSheet";
+import {getGivenHousesSheet} from "@/backend/googleSheets/raw/givenHousesSheet";
 
-const {googleSheets} = require("./googleSheetsAuth")
-
-async function getGivenAutosSheet() {
-    const sheets = googleSheets()
-    // console.log(sheets)
-    const response = await sheets.spreadsheets.values.get({
-        spreadsheetId: process.env.GIVEN_AUTOS_SHEET_ID,
-        range: "ПОЛУЧИВШИЕ АВТО"
-    });
-
-    return response.data.values
-}
-
-async function getFullnameAndIinColumns() {
-    const sheet = await getGivenAutosSheet()
+async function getFullnameAndIinColumns(sheet) {
     sheet.shift()
     let needList = []
     sheet.map(row => {
         needList.push({
             fullname: (row[1] || "").trim(),
-            iin: (row[8] || "").trim()
+            iin: (row[4] || "").trim()
         })
     })
     return needList
 }
-
 
 function filterContains(filterList = [], sharer = {}) {
     return filterList.filter(filter => {
@@ -46,16 +33,24 @@ function filterSheet(sheet, filter, searchKey = "") {
     })
 
     return {
-        listName : sheet.listName,
-        sharers : newSharers,
+        listName: sheet.listName,
+        sharers: newSharers,
         summary: sheet.summary
     }
 }
 
 async function searchGivenAutosList(searchKey) {
     const oneCSheetData = await getEditedOneCSheetData()
-    const filter = await getFullnameAndIinColumns()
+    const sheet = await getGivenAutosSheet()
+    const filter = await getFullnameAndIinColumns(sheet)
     return filterSheet(oneCSheetData.autosSheet, filter, searchKey)
 }
 
-export {searchGivenAutosList}
+async function searchGivenHousesList(searchKey) {
+    const oneCSheetData = await getEditedOneCSheetData()
+    const sheet = await getGivenHousesSheet()
+    const filter = await getFullnameAndIinColumns(sheet)
+    return filterSheet(oneCSheetData.housesSheet, filter, searchKey)
+}
+
+export {searchGivenAutosList, searchGivenHousesList}

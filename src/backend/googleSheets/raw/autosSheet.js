@@ -38,29 +38,4 @@ async function getAutosSheet() {
     return response.data.valueRanges
 }
 
-
-async function getTrimmedAutosSheet() {
-    const sheet = await getAutosSheet()
-    let needSheet = []
-    sheet.map(list => {
-        list.values.shift()
-        let needList = []
-        list.values.map(row => {
-            needList.push({
-                index: row[0] || "",
-                contractNumber: row[1] || "",
-                date: "",
-                fullname: row[2] || "",
-                iin: row[4] || ""
-            })
-        })
-        let listName = list.range.split("!")[0]
-        needSheet.push({
-            listName: listName.substring(1, listName.length - 1),
-            data: needList
-        })
-    })
-    return needSheet
-}
-
-export {getTrimmedAutosSheet}
+export {getAutosSheet}
