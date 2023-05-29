@@ -14,7 +14,7 @@ const AccountInfo = ({data}) => {
                 alt="account image"
             />
             <span className={styles.account}>{data?.phone || data?.name}</span>
-            <span>{data?.isAdmin && "Admin"}</span>
+            <span>{data?.isAdmin && "Аналитик"}</span>
         </div>
     );
 };
