@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {PatternFormat} from "react-number-format";
@@ -10,12 +10,25 @@ import carAndHome from "../assets/images/car-home.png";
 const Login = () => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     const {push} = useRouter();
+    const [step, setStep] = useState("number");
     const [phone, setPhone] = useState("");
     const [timestamp, setTimestamp] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
-    const [step, setStep] = useState("initial");
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [googleName, setGoogleName] = useState("");
+    const [picture, setPicture] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [middlename, setMiddlename] = useState("");
+    const [iin, setIin] = useState("");
     const [isErrorCode, setIsErrorCode] = useState(false);
     const formattedPhoneNumber = phone.replace(/\D/g, "");
+
+    useEffect(() => {
+        if(localStorage.getItem("userData")){
+            push("/")
+        }
+    } , [])
 
     const sendCode = async (e) => {
         e.preventDefault();
@@ -28,17 +41,17 @@ const Login = () => {
             const {timestamp} = await res.json()
             setTimestamp(timestamp)
 
-            setStep("send")
+            setStep("confirm")
 
         } catch (e) {
             console.error(e);
         }
     };
 
-    const register = async (e) => {
+    const confirmSms = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch("/api/register", {
+            const res = await fetch("/api/confirm", {
                 method: "POST",
                 body: JSON.stringify({timestamp, phone: formattedPhoneNumber, confirmCode}),
             });
@@ -49,13 +62,18 @@ const Login = () => {
             }
 
             const {isAdmin} = await res.json()
-            console.log({isAdmin})
-            localStorage.setItem("userData", JSON.stringify({isAdmin, phone}));
-            push("/");
-
+            setIsAdmin(isAdmin)
+            setStep("data")
         } catch (e) {
             console.error(e);
         }
+    };
+
+    const enter = async (e) => {
+        e.preventDefault();
+        let fullname = `${lastname} ${firstname} ${middlename}`
+        localStorage.setItem("userData", Buffer.from(JSON.stringify({isAdmin, phone, fullname, iin, googleName, picture})).toString("base64"));
+        push("/");
     };
 
     const handleFocus = () => {
@@ -65,9 +83,10 @@ const Login = () => {
 
     function success(result) {
         const {name, picture} = jwtDecode(result.credential)
-        console.log({name, picture})
-        localStorage.setItem("userData", JSON.stringify({name, picture}))
-        push("/");
+        console.log({name, picture} )
+        setGoogleName(name)
+        setPicture(picture)
+        setStep("data")
     }
 
     function error() {
@@ -94,7 +113,7 @@ const Login = () => {
             </div>
             <div className="auth__form">
                 <form className="auth-form">
-                    {step === "initial" && (
+                    {step === "number" && (
                         <>
                             <h3 className="auth-form__title">Отправка SMS кода</h3>
                             <div className="auth-form__fields">
@@ -117,10 +136,26 @@ const Login = () => {
                                     Отправить
                                 </button>
                             </div>
+                            <div className="line"></div>
+                            <div className={"oauth"}>
+
+                                <GoogleOAuthProvider
+                                    clientId={"1073982536661-u50ihostb12fjvqlnph7g2gif14nam7b.apps.googleusercontent.com"}
+                                >
+                                    <GoogleLogin
+                                        onSuccess={success}
+                                        onError={error}
+                                        logo_alignment={"center"}
+                                    >
+
+                                    </GoogleLogin>
+                                </GoogleOAuthProvider>
+
+                            </div>
                         </>
                     )}
 
-                    {step === "send" && (
+                    {step === "confirm" && (
                         <>
                             <h3 className="auth-form__title">
                                 Введите код <br/> из СМС
@@ -148,28 +183,71 @@ const Login = () => {
                                         </div>
                                     )}
                                 </div>
-                                <button className="auth-form__btn" onClick={register}>
-                                    Авторизоваться
+                                <button className="auth-form__btn" onClick={confirmSms}>
+                                    Подтвердить
                                 </button>
                             </div>
                         </>
                     )}
-                    <div className="line"></div>
-                    <div className={"oauth"}>
 
-                        <GoogleOAuthProvider
-                            clientId={"1073982536661-u50ihostb12fjvqlnph7g2gif14nam7b.apps.googleusercontent.com"}
-                        >
-                            <GoogleLogin
-                                onSuccess={success}
-                                onError={error}
-                                logo_alignment={"center"}
-                            >
+                    {step === "data" && (
+                        <>
+                            <h3 className="auth-form__title">Ваши данные</h3>
+                            <div className="auth-form__fields">
+                                <div className="auth-form__field field">
+                                    <div className="field__title">Фамилия</div>
+                                    <input
+                                        type="text"
+                                        name="lastname"
+                                        className="field__input"
+                                        required
+                                        onChange={e => {
+                                        e.preventDefault()
+                                        setLastname(e.target.value)
+                                    }}/>
+                                </div>
+                                <div className="auth-form__field field">
+                                    <div className="field__title">Имя</div>
+                                    <input type="text" name="firstname" className="field__input" onChange={e => {
+                                        e.preventDefault()
+                                        setFirstname(e.target.value)
+                                    }}/>
+                                </div>
+                                <div className="auth-form__field field">
+                                    <div className="field__title">Отчество</div>
+                                    <input type="text" name="middlename" className="field__input" onChange={e => {
+                                        e.preventDefault()
+                                        setMiddlename(e.target.value)
+                                    }}/>
+                                </div>
+                                <div className="auth-form__field field">
+                                    <div className="field__title">ИИН</div>
+                                    <PatternFormat
+                                        name="iin"
+                                        format="############"
+                                        allowEmptyFormatting
+                                        mask="_"
+                                        className="field__input field__inputCode"
+                                        placeholder='____________'
+                                        onChange={(e) => {
+                                            e.preventDefault()
+                                            setIin(e.target.value)
+                                        }}
+                                        onFocus={handleFocus}
+                                        style={isErrorCode ? {borderColor: "#e92d45"} : {}}
+                                    />
+                                </div>
+                                <button
+                                    className="auth-form__btn"
+                                    onClick={enter}
+                                    disabled={!firstname || !lastname || !iin}
+                                >
+                                    Войти
+                                </button>
+                            </div>
+                        </>
+                    )}
 
-                            </GoogleLogin>
-                        </GoogleOAuthProvider>
-
-                    </div>
                 </form>
             </div>
         </div>

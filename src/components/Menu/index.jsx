@@ -8,15 +8,10 @@ import logo from "../../assets/images/logo-dark.png";
 import styles from "./menu.module.scss";
 import AccountInfo from "../AccountInfo";
 
-const Menu = () => {
+const Menu = ({userData}) => {
     const burger = useSelector((state) => state.burger.value);
-    const [userData, setUserData] = useState({phone: "", name: "", picture: ""})
     const dispatch = useDispatch();
     const {pathname} = useRouter();
-
-    useEffect(() => {
-        setUserData(JSON.parse(localStorage.getItem("userData")))
-    }, [])
 
     return (
         <>
@@ -30,7 +25,7 @@ const Menu = () => {
                 </div>
 
                 <div className={styles.accountInfo}>
-                    <AccountInfo data={userData}/>
+                    <AccountInfo userData={userData}/>
                 </div>
 
                 <nav className={styles.nav}>

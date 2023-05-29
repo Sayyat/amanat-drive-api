@@ -31,17 +31,15 @@ export default function Index() {
         back();
     };
 
-    return (<div className="content">
-            <Header/>
-            <div className="content__info">
-                <button onClick={handleGoBack} className="back-btn"><Image src={backIcon} alt="back icon"></Image><span>Назад к списку</span>
-                </button>
-                {tableItem?.length <= 0 ? (
-                    <TableLoader/>
-                ) : (
-                    <TableOneCSingle data={tableItem}/>
-                )}
-            </div>
+    return (
+        <div className="content__info">
+            <button onClick={handleGoBack} className="back-btn"><Image src={backIcon} alt="back icon"></Image><span>Назад к списку</span>
+            </button>
+            {tableItem?.length <= 0 ? (
+                <TableLoader/>
+            ) : (
+                <TableOneCSingle data={tableItem}/>
+            )}
         </div>
     )
 }

@@ -29,16 +29,13 @@ export default function Index() {
     }
 
     return (
-        <div className="content">
-            <Header/>
-            <div className="content__info">
-                <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN}/>
-                {tableHouses.length <= 0 ? (
-                    <TableLoader/>
-                ) : (
-                    <TableOneCAll data={tableHouses} pathIndex="given-house"/>
-                )}
-            </div>
+        <div className="content__info">
+            <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN}/>
+            {tableHouses.length <= 0 ? (
+                <TableLoader/>
+            ) : (
+                <TableOneCAll data={tableHouses} pathIndex="given-house"/>
+            )}
         </div>
     );
 }

@@ -17,12 +17,9 @@ export default function Transfer() {
   }, []);
 
   return (
-    <div className="content">
-      <Header />
-      <div className="content__info">
-        <Banner />
-        { data.length <= 0 ? <TableLoader /> : <TableTransfer data={data} /> }
-      </div>
+    <div className="content__info">
+      <Banner />
+      { data.length <= 0 ? <TableLoader /> : <TableTransfer data={data} /> }
     </div>
   );
 }

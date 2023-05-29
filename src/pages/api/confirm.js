@@ -8,7 +8,6 @@ export default async function handler(req, res) {
         body = JSON.parse(body)
 
     const {timestamp, phone, confirmCode} = body
-    console.log({timestamp, phone, confirmCode})
 
     const whiteList = await whiteListSheet()
 

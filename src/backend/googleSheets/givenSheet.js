@@ -50,6 +50,7 @@ function fillMonthlyList(sharers) {
         if(year === thisYear && month === thisMonth)
             return
 
+        sharer.isPaid = false
         while (year !== thisYear || month !== thisMonth){
             month ++
             if(month === 13){

@@ -47,27 +47,24 @@ export default function Index() {
     }
 
     return (
-        <div className="content">
-            <Header/>
-            <div className="content__info">
-                <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN}/>
-                {tableAutos.length <= 0 && tableHouses.length <= 0 ? (
-                    <TableLoader/>
-                ) : (
-                    <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
-                        <TabList>
-                            <Tab>Авто</Tab>
-                            <Tab>Жилье</Tab>
-                        </TabList>
-                        <TabPanel>
-                            <TableOneCAll data={tableAutos} type="auto" pathIndex="one-c" />
-                        </TabPanel>
-                        <TabPanel>
-                            <TableOneCAll data={tableHouses} type="house" pathIndex="one-c" />
-                        </TabPanel>
-                    </Tabs>
-                )}
-            </div>
+        <div className="content__info">
+            <Banner iin={iin} handleInput={handleInput} findByIIN={findByIIN}/>
+            {tableAutos.length <= 0 && tableHouses.length <= 0 ? (
+                <TableLoader/>
+            ) : (
+                <Tabs selectedIndex={activeTab} onSelect={handleTabChange}>
+                    <TabList>
+                        <Tab>Авто</Tab>
+                        <Tab>Жилье</Tab>
+                    </TabList>
+                    <TabPanel>
+                        <TableOneCAll data={tableAutos} type="auto" pathIndex="one-c" />
+                    </TabPanel>
+                    <TabPanel>
+                        <TableOneCAll data={tableHouses} type="house" pathIndex="one-c" />
+                    </TabPanel>
+                </Tabs>
+            )}
         </div>
     );
 }
