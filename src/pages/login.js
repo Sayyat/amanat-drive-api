@@ -11,23 +11,25 @@ const Login = () => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     const {push} = useRouter();
     const [phone, setPhone] = useState("");
+    const [timestamp, setTimestamp] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
     const [step, setStep] = useState("initial");
     const [isErrorCode, setIsErrorCode] = useState(false);
     const formattedPhoneNumber = phone.replace(/\D/g, "");
-    const finalPhoneNumber = "+" + formattedPhoneNumber;
 
     const sendCode = async (e) => {
         e.preventDefault();
         try {
             const res = await fetch("/api/sendCode", {
                 method: "POST",
-                body: JSON.stringify({phone: finalPhoneNumber}),
+                body: JSON.stringify({phone: formattedPhoneNumber}),
             });
 
-            // if (res.status === 200) {
-            setStep("send");
-            // }
+            const {timestamp} = await res.json()
+            setTimestamp(timestamp)
+
+            setStep("send")
+
         } catch (e) {
             console.error(e);
         }
@@ -38,16 +40,19 @@ const Login = () => {
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
-                body: JSON.stringify({phone: finalPhoneNumber, confirmCode}),
+                body: JSON.stringify({timestamp, phone: formattedPhoneNumber, confirmCode}),
             });
-            if(/^[0-9]+$/)
-            if (res.status === 200) {
-                localStorage.setItem("userData", JSON.stringify({phone}));
-                push("/");
-            }
+
             if (res.status === 400) {
                 setIsErrorCode(true);
+                return
             }
+
+            const {isAdmin} = await res.json()
+            console.log({isAdmin})
+            localStorage.setItem("userData", JSON.stringify({isAdmin, phone}));
+            push("/");
+
         } catch (e) {
             console.error(e);
         }
@@ -65,7 +70,8 @@ const Login = () => {
         push("/");
     }
 
-    function error() {}
+    function error() {
+    }
 
     return (
         <div className="auth">

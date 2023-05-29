@@ -33,7 +33,6 @@ function extractSharerData(table, rowIndex) {
         },
         monthly: [],
         isPaid: true
-
     }
 
     rowIndex++
