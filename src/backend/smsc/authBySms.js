@@ -1,5 +1,3 @@
-import {whiteListSheet} from "@/backend/googleSheets/raw/whitelistSheet";
-
 const {mkdirSync, writeFileSync, readFileSync, existsSync, rm} = require("fs")
 
 function getRandomConfirmNumber(min, max) {
@@ -34,9 +32,9 @@ async function sendMessage(to) {
 function authorize(timestamp, phone, confirmCode) {
 
     let filename = `${timestamp}_${phone}.txt`
-    if(confirmCode === "2023"){
-        return true
-    }
+    // if(confirmCode === "2023"){
+    //     return true
+    // }
 
     if (!existsSync(`./confirms/${filename}`)) {
         return false

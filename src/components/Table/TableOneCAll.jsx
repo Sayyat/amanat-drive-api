@@ -7,7 +7,7 @@ import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 
 const TableOneCAll = ({data, type, pathIndex}) => {
-
+    console.log(data)
     const isType = type ? {type: type === "auto" ? "auto" : "house"} : {}
     return (
         <div className={`${styles.table} ${styles.tableFlex}`}>
@@ -28,7 +28,7 @@ const TableOneCAll = ({data, type, pathIndex}) => {
                                     <td>Ф.И.О.</td>
                                     <td>ИИН</td>
                                     <td>Договор</td>
-                                    <td>Пополнено</td>
+                                    <td>Пополнено (<span className={styles.OneCLink}>{data.paidCount} / {data.sharers.length}</span>)</td>
                                 </tr>
                                 </thead>
                                 <tbody>

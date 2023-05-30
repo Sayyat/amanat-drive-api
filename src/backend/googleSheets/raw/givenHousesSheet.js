@@ -5,7 +5,7 @@ async function getGivenHousesSheet() {
     // console.log(sheets)
     const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.GIVEN_HOUSES_SHEET_ID,
-        range: "ПОЛУЧИВШИЕ ЖИЛЬЕ"
+        range: "'ПОЛУЧИВШИЕ ЖИЛЬЕ'!B2:C"
     });
 
     return response.data.values

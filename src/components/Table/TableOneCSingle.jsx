@@ -70,11 +70,11 @@ const TableOneCSingle = ({data}) => {
                                 })}
                                 <tr className={styles.totalSumTr}>
                                     <td className={styles.totalSum}>Итого</td>
-                                    <td>{row["summary"]?.entranceFee}</td>
-                                    <td>{row["summary"]?.initialFee}</td>
-                                    <td>{row["summary"]?.investments}</td>
-                                    <td>{row["summary"]?.membershipFee}</td>
-                                    <td>---</td>
+                                    <td>{row["summary"]?.entranceFee || 0}</td>
+                                    <td>{row["summary"]?.initialFee || 0}</td>
+                                    <td>{row["summary"]?.investments || 0}</td>
+                                    <td>{row["summary"]?.membershipFee || 0}</td>
+                                    <td><span style={{color: "#33e92d"}}>{row["paidCount"]}</span> / {row["monthly"].length}</td>
                                 </tr>
                                 </tbody>
                             </table>

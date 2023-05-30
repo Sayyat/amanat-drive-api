@@ -5,7 +5,6 @@ import {compareNames, splitName} from "@/backend/googleSheets/nameSplit";
 async function addKeysToSheet(sheet) {
     let needSheet = []
     sheet.map(list => {
-        list.values.shift()
         let needList = []
         list.values.map(row => {
             needList.push({

@@ -4,7 +4,7 @@ async function getTransfersSheet() {
     const sheets = googleSheets()
     const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.TRANSFER_SHEET_ID,
-        range: "ПЕРЕУСТУПКА"
+        range: "'ЗАЯВЛЕНИЯ О ВЫХОДЕ'!A2:E"
     });
 
     return response.data.values

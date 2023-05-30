@@ -5,7 +5,7 @@ async function getGivenAutosSheet() {
     // console.log(sheets)
     const response = await sheets.spreadsheets.values.get({
         spreadsheetId: process.env.GIVEN_AUTOS_SHEET_ID,
-        range: "ПОЛУЧИВШИЕ АВТО"
+        range: "'ПОЛУЧИВШИЕ АВТО'!B2:C"
     });
 
     return response.data.values
