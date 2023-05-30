@@ -66,6 +66,15 @@ const Header = ({userData}) => {
                             basedOn="letters"
                         />
                     )}
+                    {pathname === "/one-c" && (
+                        <LinesEllipsis
+                            text="База платежей"
+                            maxLine="2"
+                            ellipsis="..."
+                            trimRight
+                            basedOn="letters"
+                        />
+                    )}
                     {pathname === "/given-auto" && (
                         <LinesEllipsis
                             text="Получившие авто"

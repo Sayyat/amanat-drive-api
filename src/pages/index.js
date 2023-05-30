@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import Header from "../components/Header";
 import Banner from "../components/Banner";
 import Table from "../components/Table";
 import TableLoader from "@/components/TableLoader";

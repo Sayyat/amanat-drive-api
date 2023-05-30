@@ -4,7 +4,6 @@ import "@/styles/globals.scss";
 import {useRouter} from "next/router";
 import Menu from "@/components/Menu";
 import {useEffect, useState} from "react";
-import Login from "@/pages/login";
 import Header from "@/components/Header";
 import {useLocalStorage} from "@/hooks/useLocalStorage";
 

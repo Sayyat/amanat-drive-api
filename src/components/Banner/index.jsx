@@ -22,6 +22,8 @@ const Banner = ({iin, handleInput, findByIIN}) => {
                 </h3>
                 <p>
                     {pathname === "/" && "Для поиска введите свой ИИН или Ф.И.О. в поле «ПОИСК»"}
+
+                    {pathname === "/one-c" && "Актуальные данные из базы"}
                     {(pathname === "/given-auto" || pathname === "/given-house") &&
                         "Для поиска введите ИИН или Ф.И.О. в поле «ПОИСК»"}
                     {pathname === "/transfer" &&
@@ -40,6 +42,7 @@ const Banner = ({iin, handleInput, findByIIN}) => {
                     <Image src={banner2} alt="Получившие жилье" priority="true"/>
                 )}
                 {pathname === "/transfer" && <Image src={banner3} alt="Переуступка" priority="true"/>}
+                {pathname === "/one-c" && <Image src={banner3} alt="Один с" priority="true"/>}
             </div>
         </div>
     );
