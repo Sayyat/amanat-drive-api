@@ -9,13 +9,12 @@ import carAndHome from "../assets/images/car-home.png";
 
 const Login = () => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-    const {push} = useRouter();
+    const {replace} = useRouter();
     const [step, setStep] = useState("number");
     const [phone, setPhone] = useState("");
     const [timestamp, setTimestamp] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [googleName, setGoogleName] = useState("");
+    const [email, setEmail] = useState("");
     const [picture, setPicture] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -25,10 +24,10 @@ const Login = () => {
     const formattedPhoneNumber = phone.replace(/\D/g, "");
 
     useEffect(() => {
-        if(localStorage.getItem("userData")){
-            push("/")
+        if (localStorage.getItem("userData")) {
+            replace("/")
         }
-    } , [])
+    }, [])
 
     const sendCode = async (e) => {
         e.preventDefault();
@@ -61,8 +60,13 @@ const Login = () => {
                 return
             }
 
-            const {isAdmin} = await res.json()
-            setIsAdmin(isAdmin)
+            const {data} = await res.json()
+            if (data) {
+                localStorage.setItem("userData", Buffer.from(JSON.stringify(data)).toString("base64"))
+                replace("/")
+                return
+            }
+
             setStep("data")
         } catch (e) {
             console.error(e);
@@ -71,9 +75,29 @@ const Login = () => {
 
     const enter = async (e) => {
         e.preventDefault();
-        let fullname = `${lastname} ${firstname} ${middlename}`
-        localStorage.setItem("userData", Buffer.from(JSON.stringify({isAdmin, phone, fullname, iin, googleName, picture})).toString("base64"));
-        push("/");
+        const data = JSON.stringify({
+            phone: formattedPhoneNumber,
+            email,
+            lastname,
+            firstname,
+            middlename,
+            iin,
+            picture
+        })
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: data
+        })
+
+        if (response.status === 200) {
+            localStorage.setItem("userData", Buffer.from(data).toString("base64"))
+            replace("/");
+            return
+        }
+
+        //     error
+
+
     };
 
     const handleFocus = () => {
@@ -81,11 +105,27 @@ const Login = () => {
     };
 
 
-    function success(result) {
-        const {name, picture} = jwtDecode(result.credential)
-        console.log({name, picture} )
-        setGoogleName(name)
+    async function success(result) {
+        const {email, picture} = jwtDecode(result.credential)
+        setEmail(email)
         setPicture(picture)
+        setPhone("")
+
+        // login
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+                email,
+            })
+        })
+
+        const {data} = await response.json()
+        if (data) {
+            localStorage.setItem("userData", Buffer.from(JSON.stringify(data)).toString("base64"))
+            replace("/")
+            return
+        }
+
         setStep("data")
     }
 
@@ -202,9 +242,9 @@ const Login = () => {
                                         className="field__input"
                                         required
                                         onChange={e => {
-                                        e.preventDefault()
-                                        setLastname(e.target.value)
-                                    }}/>
+                                            e.preventDefault()
+                                            setLastname(e.target.value)
+                                        }}/>
                                 </div>
                                 <div className="auth-form__field field">
                                     <div className="field__title">Имя</div>

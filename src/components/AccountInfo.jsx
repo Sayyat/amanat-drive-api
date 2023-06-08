@@ -13,7 +13,7 @@ const AccountInfo = ({userData}) => {
                 height={50}
                 alt="account image"
             />
-            <span className={styles.account}>{userData?.fullname || userData?.phone || userData?.googleName}</span>
+            <span className={styles.account}>{userData?.phone || userData?.email}</span>
             <span>{userData?.isAdmin && "Аналитик"}</span>
         </div>
     );

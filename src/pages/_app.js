@@ -9,16 +9,17 @@ import {useLocalStorage} from "@/hooks/useLocalStorage";
 
 export default function App({Component, pageProps}) {
     const router = useRouter()
-    const {pathname, push} = router
+    const {pathname, replace} = router
     const [userData, setUserData] = useState({})
     const {getUserData} = useLocalStorage()
     useEffect(() => {
 
         const userData = getUserData()
         if(!userData) {
-            push("/login")
+            replace("/login")
             return
         }
+        console.log(userData)
         setUserData(userData)
     }, [pathname])
 

@@ -16,7 +16,7 @@ export default function Home() {
     useEffect(() => {
         let userData = getUserData()
         if(!userData) return
-        search(userData.fullname)
+        search(`${userData.lastname} ${userData.firstname} ${userData.middlename} `)
     }, [])
 
     useEffect(() => {

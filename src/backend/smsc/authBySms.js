@@ -29,7 +29,7 @@ async function sendMessage(to) {
 }
 
 
-function authorize(timestamp, phone, confirmCode) {
+function confirmMessage(timestamp, phone, confirmCode) {
 
     let filename = `${timestamp}_${phone}.txt`
     // if(confirmCode === "2023"){
@@ -50,4 +50,4 @@ function authorize(timestamp, phone, confirmCode) {
     return logic
 }
 
-export {sendMessage, authorize}
+export {sendMessage, confirmMessage}
