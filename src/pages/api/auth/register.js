@@ -1,4 +1,3 @@
-import {write} from "@/backend/auth/auth";
 import {whiteListSheet} from "@/backend/googleSheets/raw/whitelistSheet";
 import {register} from "@/backend/database/auth";
 
