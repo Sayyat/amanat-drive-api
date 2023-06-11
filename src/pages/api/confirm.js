@@ -1,5 +1,5 @@
 import {confirmMessage} from "@/backend/smsc/authBySms"
-import {read} from "@/backend/auth/auth";
+import {login} from "@/backend/database/auth";
 
 export default async function handler(req, res) {
     let body = req.body
@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     const isConfirmed = confirmMessage(timestamp, phone, confirmCode)
 
-    const row = await read(phone, "");
+    const row = await login(phone, "");
 
     if(!row){
         res.status(isConfirmed ? 200 : 400).json({

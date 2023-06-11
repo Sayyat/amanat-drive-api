@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Image from "next/image";
-import {useRouter} from "next/router";
 import {PatternFormat} from "react-number-format";
 import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
-import logo from "../assets/images/logo.png";
-import carAndHome from "../assets/images/car-home.png";
+import logo from "../../assets/images/logo.png";
+import carAndHome from "../../assets/images/car-home.png";
 
-const Login = () => {
+const Login = ({setUserId}) => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-    const {replace} = useRouter();
     const [step, setStep] = useState("number");
     const [phone, setPhone] = useState("");
     const [timestamp, setTimestamp] = useState("");
@@ -23,12 +21,6 @@ const Login = () => {
     const [isErrorCode, setIsErrorCode] = useState(false);
     const formattedPhoneNumber = phone.replace(/\D/g, "");
 
-    useEffect(() => {
-        if (localStorage.getItem("userData")) {
-            replace("/")
-        }
-    }, [])
-
     const sendCode = async (e) => {
         e.preventDefault();
         try {
@@ -41,7 +33,6 @@ const Login = () => {
             setTimestamp(timestamp)
 
             setStep("confirm")
-
         } catch (e) {
             console.error(e);
         }
@@ -62,8 +53,8 @@ const Login = () => {
 
             const {data} = await res.json()
             if (data) {
-                localStorage.setItem("userData", Buffer.from(JSON.stringify(data)).toString("base64"))
-                replace("/")
+                console.log(data)
+                setUserId(data)
                 return
             }
 
@@ -90,14 +81,9 @@ const Login = () => {
         })
 
         if (response.status === 200) {
-            localStorage.setItem("userData", Buffer.from(data).toString("base64"))
-            replace("/");
-            return
+            setUserId(data)
         }
-
         //     error
-
-
     };
 
     const handleFocus = () => {
@@ -119,10 +105,10 @@ const Login = () => {
             })
         })
 
-        const {data} = await response.json()
-        if (data) {
-            localStorage.setItem("userData", Buffer.from(JSON.stringify(data)).toString("base64"))
-            replace("/")
+        const {id} = await response.json()
+        if (id) {
+            console.log(id)
+            setUserId(id)
             return
         }
 

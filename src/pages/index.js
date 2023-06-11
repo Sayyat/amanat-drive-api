@@ -4,17 +4,14 @@ import "react-tabs/style/react-tabs.css";
 import Banner from "../components/Banner";
 import Table from "../components/Table";
 import TableLoader from "@/components/TableLoader";
-import {useLocalStorage} from "@/hooks/useLocalStorage";
 
-export default function Home() {
+export default function Home({userData}) {
     const [iin, setIin] = useState("");
     const [tableAutos, setTableAutos] = useState([]);
     const [tableHouses, setTableHouses] = useState([]);
     const [activeTab, setActiveTab] = useState(0);
     const [isChangeInput, setIsChangeInput] = useState(false);
-    const {getUserData} = useLocalStorage()
     useEffect(() => {
-        let userData = getUserData()
         if(!userData) return
         search(`${userData.lastname} ${userData.firstname} ${userData.middlename} `)
     }, [])

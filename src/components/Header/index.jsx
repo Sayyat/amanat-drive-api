@@ -8,8 +8,8 @@ import AccountInfo from "../AccountInfo";
 import logoutImage from "../../assets/images/logout.png";
 import styles from "./header.module.scss";
 
-const Header = ({userData}) => {
-    const {push, pathname} = useRouter();
+const Header = ({userData, setUserId}) => {
+    const {pathname} = useRouter();
     const dispatch = useDispatch();
     const handleBurger = () => {
         dispatch(click());
@@ -17,8 +17,7 @@ const Header = ({userData}) => {
 
     const logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem("userData");
-        push("/login", "/login", {shallow: true});
+        setUserId(null)
     };
 
     return (

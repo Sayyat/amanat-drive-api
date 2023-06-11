@@ -1,43 +1,44 @@
 import {Provider} from "react-redux";
 import store from "../store";
 import "@/styles/globals.scss";
-import {useRouter} from "next/router";
 import Menu from "@/components/Menu";
 import {useEffect, useState} from "react";
 import Header from "@/components/Header";
-import {useLocalStorage} from "@/hooks/useLocalStorage";
+import Login from "@/components/Login"
+import {useUserData} from "@/hooks/useUserData";
+import Loading from "@/components/Loading";
 
 export default function App({Component, pageProps}) {
-    const router = useRouter()
-    const {pathname, replace} = router
-    const [userData, setUserData] = useState({})
-    const {getUserData} = useLocalStorage()
-    useEffect(() => {
+    const {fetchUserData, userId, setUserId} = useUserData()
+    const [userData, setUserData] = useState(null)
+    const [loading, setLoading] = useState(true)
 
-        const userData = getUserData()
-        if(!userData) {
-            replace("/login")
-            return
-        }
-        console.log(userData)
-        setUserData(userData)
-    }, [pathname])
+    useEffect(() => {
+        fetchUserData(userId)
+            .then(userData => {
+                console.log(userData)
+                setUserData(userData)
+                setLoading(false)
+            })
+    }, [userId])
 
 
     return (
         <Provider store={store}>
             <div className="app">
-                {pathname === "/login" ? (
-                    <Component {...pageProps} />
-                ) : (
-                    <div className="wrapper">
-                        <Menu userData={userData}/>
-                        <div className="content">
-                            <Header userData={userData} />
-                            <Component {...pageProps} />
-                        </div>
-                    </div>
-                )}
+                {
+                    loading ? <Loading></Loading> :
+                        !userId ? <Login setUserId={setUserId} {...pageProps}/>
+                            : (
+                                <div className="wrapper">
+                                    <Menu userData={userData}/>
+                                    <div className="content">
+                                        <Header userData={userData} setUserId={setUserId}/>
+                                        <Component userData={userData}  {...pageProps} />
+                                    </div>
+                                </div>
+                            )
+                }
             </div>
         </Provider>
     );
