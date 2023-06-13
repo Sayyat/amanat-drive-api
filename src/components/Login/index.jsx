@@ -10,7 +10,6 @@ const Login = ({saveUserId}) => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     const [step, setStep] = useState("number");
     const [phone, setPhone] = useState("");
-    const [timestamp, setTimestamp] = useState("");
     const [confirmCode, setConfirmCode] = useState("");
     const [email, setEmail] = useState("");
     const [picture, setPicture] = useState("");
@@ -29,8 +28,11 @@ const Login = ({saveUserId}) => {
                 body: JSON.stringify({phone: formattedPhoneNumber}),
             });
 
-            const {timestamp} = await res.json()
-            setTimestamp(timestamp)
+            const {success} = await res.json()
+            if(!success) {
+                alert("Ошибка: попробуйте еще раз")
+                return
+            }
 
             setStep("confirm")
         } catch (e) {
@@ -43,7 +45,7 @@ const Login = ({saveUserId}) => {
         try {
             const res = await fetch("/api/confirm", {
                 method: "POST",
-                body: JSON.stringify({timestamp, phone: formattedPhoneNumber, confirmCode}),
+                body: JSON.stringify({phone: formattedPhoneNumber, confirmCode}),
             });
 
             if (res.status === 400) {

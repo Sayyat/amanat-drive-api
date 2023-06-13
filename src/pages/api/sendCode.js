@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const {phone} = body
     console.log(phone)
 
-    const timestamp = await sendMessage(phone)
+    const success = await sendMessage(phone)
 
-    res.status(200).json({timestamp})
+    res.status(200).json({success})
 }

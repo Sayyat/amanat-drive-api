@@ -7,10 +7,10 @@ export default async function handler(req, res) {
     if (typeof body === "string")
         body = JSON.parse(body)
 
-    const {timestamp, phone, confirmCode} = body
+    const {phone, confirmCode} = body
 
 
-    const isConfirmed = confirmMessage(timestamp, phone, confirmCode)
+    const isConfirmed = confirmMessage(phone, confirmCode)
 
     const rows = await login(phone, "");
 
