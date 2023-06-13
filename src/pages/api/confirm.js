@@ -9,8 +9,7 @@ export default async function handler(req, res) {
 
     const {phone, confirmCode} = body
 
-
-    const isConfirmed = confirmMessage(phone, confirmCode)
+    const isConfirmed = await confirmMessage(phone, confirmCode)
 
     const rows = await login(phone, "");
 
