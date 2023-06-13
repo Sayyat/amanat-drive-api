@@ -62,7 +62,7 @@ const Menu = ({userData}) => {
                         </svg>
                         <span>Моя очередь</span>
                     </Link>
-                    {userData?.isAdmin === 1 && (<>
+                    {userData?.role === "admin" && (<>
 
                         <Link
                             href="/one-c"

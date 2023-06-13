@@ -1,4 +1,3 @@
-import {write} from "@/backend/auth/auth";
 import {whiteListSheet} from "@/backend/googleSheets/raw/whitelistSheet";
 import {register} from "@/backend/database/auth";
 
@@ -7,18 +6,14 @@ export default async function (req, res) {
 
     const whiteList = await whiteListSheet()
 
-    let isAdmin = false
+    let role = "user"
     for (let i = 0; i < whiteList.length; i++) {
         if (whiteList[i][0].trim() === phone) {
-            isAdmin = true
+            role = "admin"
         }
     }
 
-    const result = await register(phone, email, lastname, firstname, middlename, iin, isAdmin, picture)
+    const userId = await register(phone, email, lastname, firstname, middlename, iin, role, picture)
 
-
-
-    console.log(result.data)
-
-    res.status(200).json(result)
+    res.status(200).json({userId: userId.toString()})
 }

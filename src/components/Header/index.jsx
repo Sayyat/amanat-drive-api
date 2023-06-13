@@ -8,7 +8,7 @@ import AccountInfo from "../AccountInfo";
 import logoutImage from "../../assets/images/logout.png";
 import styles from "./header.module.scss";
 
-const Header = ({userData, setUserId}) => {
+const Header = ({userData, removeUserId}) => {
     const {pathname} = useRouter();
     const dispatch = useDispatch();
     const handleBurger = () => {
@@ -17,7 +17,7 @@ const Header = ({userData, setUserId}) => {
 
     const logout = (e) => {
         e.preventDefault();
-        setUserId(null)
+        removeUserId()
     };
 
     return (

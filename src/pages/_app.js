@@ -9,11 +9,12 @@ import {useUserData} from "@/hooks/useUserData";
 import Loading from "@/components/Loading";
 
 export default function App({Component, pageProps}) {
-    const {fetchUserData, userId, setUserId} = useUserData()
+    const {fetchUserData, userId, saveUserId, removeUserId} = useUserData()
     const [userData, setUserData] = useState(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
+        console.log({userId})
         fetchUserData(userId)
             .then(userData => {
                 console.log(userData)
@@ -23,23 +24,16 @@ export default function App({Component, pageProps}) {
     }, [userId])
 
 
-    return (
-        <Provider store={store}>
-            <div className="app">
-                {
-                    loading ? <Loading></Loading> :
-                        !userId ? <Login setUserId={setUserId} {...pageProps}/>
-                            : (
-                                <div className="wrapper">
-                                    <Menu userData={userData}/>
-                                    <div className="content">
-                                        <Header userData={userData} setUserId={setUserId}/>
-                                        <Component userData={userData}  {...pageProps} />
-                                    </div>
-                                </div>
-                            )
-                }
-            </div>
-        </Provider>
-    );
+    return (<Provider store={store}>
+        <div className="app">
+            {loading ? <Loading></Loading> : !userId ? <Login saveUserId={saveUserId} {...pageProps}/> : (
+                <div className="wrapper">
+                    <Menu userData={userData}/>
+                    <div className="content">
+                        <Header userData={userData} removeUserId={removeUserId}/>
+                        <Component userData={userData}  {...pageProps} />
+                    </div>
+                </div>)}
+        </div>
+    </Provider>);
 }

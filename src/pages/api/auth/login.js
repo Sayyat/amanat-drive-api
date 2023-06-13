@@ -5,6 +5,6 @@ export default async function (req, res) {
 
     const result = await login("", email);
     res.status(200).json({
-        id : result ? result[0]?.id : null
+        id: result.length === 0 ? null : result[0]?.id
     })
 }

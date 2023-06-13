@@ -14,7 +14,7 @@ const AccountInfo = ({userData}) => {
                 alt="account image"
             />
             <span className={styles.account}>{userData?.phone || userData?.email}</span>
-            <span>{userData?.isAdmin === 1 && "Аналитик"}</span>
+            <span>{userData?.role === "admin" && "Аналитик"}</span>
         </div>
     );
 };

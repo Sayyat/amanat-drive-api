@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import logo from "../../assets/images/logo.png";
 import carAndHome from "../../assets/images/car-home.png";
 
-const Login = ({setUserId}) => {
+const Login = ({saveUserId}) => {
     const phoneNumberRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
     const [step, setStep] = useState("number");
     const [phone, setPhone] = useState("");
@@ -51,10 +51,10 @@ const Login = ({setUserId}) => {
                 return
             }
 
-            const {data} = await res.json()
-            if (data) {
-                console.log(data)
-                setUserId(data)
+            const {id} = await res.json()
+            if (id) {
+                console.log({id})
+                saveUserId(id)
                 return
             }
 
@@ -80,8 +80,11 @@ const Login = ({setUserId}) => {
             body: data
         })
 
+        const {userId} = await response.json()
         if (response.status === 200) {
-            setUserId(data)
+
+            console.log({userId})
+            saveUserId(userId)
         }
         //     error
     };
@@ -108,7 +111,7 @@ const Login = ({setUserId}) => {
         const {id} = await response.json()
         if (id) {
             console.log(id)
-            setUserId(id)
+            saveUserId(id)
             return
         }
 
