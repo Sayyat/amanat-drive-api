@@ -15,7 +15,7 @@ export async function confirmCode(phone, code) {
         return false;
     }
     // clear the row
-    await executeQuery(`delete from confirms where phone = '${phone}' and code = '${code}';`, [])
+    await executeQuery(`delete from confirms where phone = '${phone}';`, [])
 
     return selectQuery.length > 0
 }
