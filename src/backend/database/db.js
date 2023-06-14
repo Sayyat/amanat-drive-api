@@ -12,7 +12,9 @@ const pool = mariadb.createPool({
 export default async function executeQuery(query, values) {
     try {
         const conn = await pool.getConnection();
-        return  await conn.query(query, values)
+        const result =  await conn.query(query, values)
+        await conn.release()
+        return result
     } catch (e) {
         console.error(e)
         return null
