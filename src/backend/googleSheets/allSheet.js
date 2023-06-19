@@ -6,7 +6,7 @@ async function addKeysToSheet(sheet) {
     let needSheet = []
     sheet.map(list => {
         let needList = []
-        list.values.map(row => {
+        list.values?.map(row => {
             needList.push({
                 index: row[0] || "",
                 contractNumber: row[1] || "",
