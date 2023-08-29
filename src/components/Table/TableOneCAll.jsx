@@ -7,7 +7,6 @@ import empty from "../../assets/images/empty.svg";
 import styles from "./table.module.scss";
 
 const TableOneCAll = ({data, type, pathIndex}) => {
-    console.log(data)
     const isType = type ? {type: type === "auto" ? "auto" : "house"} : {}
     return (
         <div className={`${styles.table} ${styles.tableFlex}`}>
@@ -28,7 +27,9 @@ const TableOneCAll = ({data, type, pathIndex}) => {
                                 <td>Ф.И.О.</td>
                                 <td>ИИН</td>
                                 <td>Договор</td>
-                                <td>Пополнено <br/>
+                                <td>Пополнено</td>
+                                <td>Статус
+                                    <br/>
                                     <span className={styles.green}>{data.paidCount}</span>&nbsp;/&nbsp;
                                     <span className={styles.red}>{data.sharers.length}</span>
                                 </td>
@@ -48,7 +49,9 @@ const TableOneCAll = ({data, type, pathIndex}) => {
                                     </Link>
                                     </td>
                                     <td>{row["contractNumber"]}</td>
-                                    <td style={{textAlign: "right"}}>{row["isPaid"] ? <Image src={truePaid} alt="true check"/> :
+                                    <td style={row["isPaid"] ? {color: "green"} : {color: "red"}}>{row["paidCount"]} / {row["monthly"].length}</td>
+                                    <td style={{textAlign: "right"}}>{row["isPaid"] ?
+                                        <Image src={truePaid} alt="true check"/> :
                                         <Image src={falsePaid} alt="false check"/>}</td>
                                 </tr>
                             ))}

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import TableLoader from "@/components/TableLoader";
 import TableOneCAll from "@/components/Table/TableOneCAll";
@@ -11,6 +10,7 @@ export default function Index() {
     const [tableAutos, setTableAutos] = useState([]);
     const [tableHouses, setTableHouses] = useState([]);
     const [activeTab, setActiveTab] = useState(0);
+
 
     useEffect(() => {
         async function loadSheet() {
@@ -58,10 +58,10 @@ export default function Index() {
                         <Tab>Жилье</Tab>
                     </TabList>
                     <TabPanel>
-                        <TableOneCAll data={tableAutos} type="auto" pathIndex="one-c" />
+                        <TableOneCAll data={tableAutos} type="auto" pathIndex="one-c"/>
                     </TabPanel>
                     <TabPanel>
-                        <TableOneCAll data={tableHouses} type="house" pathIndex="one-c" />
+                        <TableOneCAll data={tableHouses} type="house" pathIndex="one-c"/>
                     </TabPanel>
                 </Tabs>
             )}

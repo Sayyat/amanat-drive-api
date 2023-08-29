@@ -6,6 +6,7 @@ import falsePaid from "@/assets/images/no-check.svg";
 import styles from "./table.module.scss";
 
 const TableOneCSingle = ({data}) => {
+    console.log({data})
 
     return (<div className={styles.table}>
         <div className={styles.tableWrapperPerson}>

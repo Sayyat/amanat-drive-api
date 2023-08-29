@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 
 export function useUserData() {
     const [userId, setUserId] = useState(null)
+    const [userData, setUserData] = useState(null)
 
     useEffect(() => {
         loadUserId()
@@ -12,8 +13,11 @@ export function useUserData() {
     }, [userId])
 
     function loadUserId() {
-        const id =  Buffer.from(localStorage.getItem("userId") || "", "base64").toString()
-        setUserId(id)
+        const id = Buffer.from(localStorage.getItem("userId") || "", "base64").toString()
+        fetchUserData(id).then((userData) => {
+            setUserId(id)
+            setUserData(userData)
+        })
     }
 
     function removeUserId() {
@@ -23,7 +27,7 @@ export function useUserData() {
 
 
     function saveUserId(userId) {
-        if(!userId) return
+        if (!userId) return
         localStorage.setItem("userId", Buffer.from(`${userId}`).toString("base64"))
         setUserId(userId)
     }
@@ -36,9 +40,9 @@ export function useUserData() {
                 userId
             })
         })
-
         return await response.json()
+
     }
 
-    return {fetchUserData, userId, saveUserId,removeUserId}
+    return {userData, userId, saveUserId, removeUserId}
 }

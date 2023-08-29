@@ -15,6 +15,13 @@ const monthsRussian = [
     "декабря",
 ]
 
+function cellToNumber(cell) {
+    let space160 = String.fromCharCode(160)
+    return Number((cell || "0").trim()
+        .replaceAll(space160, "")
+        .replaceAll(",", "."))
+}
+
 function addMonths(fromMonth, fromYear, toMonth, toYear) {
     if (!fromMonth || !fromYear) return []
     if (fromMonth === toMonth && fromYear === toYear) return []
@@ -30,7 +37,7 @@ function addMonths(fromMonth, fromYear, toMonth, toYear) {
         }
         monthly.push({
             date: {
-                day: 0,
+                day: 1,
                 month: month,
                 year: year
             },
@@ -54,10 +61,10 @@ function extractSharerData(table, rowIndex, thisData) {
         contributionPercentage: row[5],
         terminationDate: row[6],
         summary: {
-            entranceFee: Number((row[7] || "0").trim()),
-            investments: Number((row[8] || "0").trim()),
-            initialFee: Number((row[9] || "0").trim()),
-            membershipFee: Number((row[10] || "0").trim()),
+            entranceFee: cellToNumber(row[7]),
+            investments: cellToNumber(row[8]),
+            initialFee: cellToNumber(row[9]),
+            membershipFee: cellToNumber(row[10]),
         },
         monthly: [],
         isPaid: true,
@@ -69,27 +76,17 @@ function extractSharerData(table, rowIndex, thisData) {
     let lastYear = null
     while (rowIndex < table.length && (table[rowIndex][0] || "").trim().split(" ").length > 1) {
         let row = table[rowIndex]
-        let entranceFee = Number((row[7] || "0").trim())
-        let investments = Number((row[8] || "0").trim())
-        let initialFee = Number((row[9] || "0").trim())
-        let membershipFee = Number((row[10] || "0").trim())
-        if (entranceFee < 50000 && initialFee < 50000) {
-            data.isPaid = false
-        } else {
-            data.paidCount ++
-        }
+        let entranceFee = cellToNumber(row[7])
+        let investments = cellToNumber(row[8])
+        let initialFee = cellToNumber(row[9])
+        let membershipFee = cellToNumber(row[10])
+
         let [d, monthRussian, y] = (row[0] || "").split(" ")
         let day = Number(d.trim())
         let month = monthsRussian.indexOf(monthRussian) + 1
         let year = Number(y.substring(0, 4))
 
-        let monthly = addMonths(lastMonth, lastYear, month - 1, year)
-
-        if (monthly.length > 0) {
-            data.isPaid = false
-        }
-
-        data.monthly = [...data.monthly, ...monthly, {
+        let currentMonth = {
             date: {
                 day,
                 month,
@@ -99,8 +96,19 @@ function extractSharerData(table, rowIndex, thisData) {
             investments,
             initialFee,
             membershipFee,
-            isPaid: entranceFee >= 50000 || initialFee >= 50000
-        }]
+            isPaid: entranceFee >= 50000 || initialFee >= 50000 || membershipFee >= 50000
+        };
+
+        if (currentMonth.isPaid) {
+            data.paidCount++
+        }
+
+        let monthly = addMonths(lastMonth, lastYear, month - 1, year)
+
+        if (monthly.length > 0 || !currentMonth.isPaid)
+            data.isPaid = false
+
+        data.monthly = [...data.monthly, ...monthly, currentMonth]
 
         lastYear = year
         lastMonth = month
@@ -116,8 +124,12 @@ function extractSharerData(table, rowIndex, thisData) {
 }
 
 
-function extractListData(list, thisData) {
+function extractListData(list, thisDate) {
     const values = list.values
+
+    // compare with cache
+
+
     const summary = values.pop()
     let sharers = []
     let paidCount = 0
@@ -125,23 +137,26 @@ function extractListData(list, thisData) {
     for (let i = 0; i < values.length; i++) {
         let row = values[i]
         if ((row[0] || "").trim().split(" ").length === 1) {
-            const {data, rowIndex} = extractSharerData(values, i, thisData)
-            if(data.isPaid) paidCount ++
+            const {data, rowIndex} = extractSharerData(values, i, thisDate)
+            if (data.isPaid) paidCount++
             sharers.push(data)
             i = rowIndex - 1
         }
     }
 
     let listName = list.range.split("!")[0]
+
+    // update cache
+
     return {
         listName: listName.substring(1, listName.length - 1),
         sharers,
         paidCount,
         summary: {
-            entranceFee: Number((summary[7] || "0").trim()),
-            investments: Number((summary[8] || "0").trim()),
-            initialFee: Number((summary[9] || "0").trim()),
-            membershipFee: Number((summary[10] || "0").trim()),
+            entranceFee: cellToNumber(summary[7]),
+            investments: cellToNumber(summary[8]),
+            initialFee: cellToNumber(summary[9]),
+            membershipFee: cellToNumber(summary[10])
         }
     }
 }
@@ -149,14 +164,14 @@ function extractListData(list, thisData) {
 async function getEditedOneCSheetData() {
     const sheet = await getOneCSheet()
     const today = new Date()
-    const thisData = {
+    const thisDate = {
         thisYear: today.getFullYear(),
         thisMonth: today.getMonth() + 1
     }
 
     return {
-        housesSheet: extractListData(sheet[0], thisData),
-        autosSheet: extractListData(sheet[1], thisData)
+        housesSheet: extractListData(sheet[0], thisDate),
+        autosSheet: extractListData(sheet[1], thisDate)
     }
 }
 
