@@ -13,14 +13,17 @@ export default function App({Component, pageProps}) {
 
     return (<Provider store={store}>
         <div className="app">
-            {userData === null ? <Loading></Loading> : !userId ? <Login saveUserId={saveUserId} {...pageProps}/> : (
-                <div className="wrapper">
-                    <Menu userData={userData}/>
-                    <div className="content">
-                        <Header userData={userData} removeUserId={removeUserId}/>
-                        <Component userData={userData}  {...pageProps} />
-                    </div>
-                </div>)}
+            {userData === null && userId === null ?
+                <Loading></Loading> :
+                !userId ? <Login saveUserId={saveUserId} {...pageProps}/> :
+                    (
+                        <div className="wrapper">
+                            <Menu userData={userData}/>
+                            <div className="content">
+                                <Header userData={userData} removeUserId={removeUserId}/>
+                                <Component userData={userData}  {...pageProps} />
+                            </div>
+                        </div>)}
         </div>
     </Provider>);
 }
