@@ -9,13 +9,13 @@ import Loading from "@/components/Loading";
 
 
 export default function App({Component, pageProps}) {
-    const {userData, userId, saveUserId, removeUserId} = useUserData()
+    const {userData, loading, saveUserId, removeUserId} = useUserData()
 
     return (<Provider store={store}>
         <div className="app">
-            {userData === null && userId === null ?
+            {loading ?
                 <Loading></Loading> :
-                !userId ? <Login saveUserId={saveUserId} {...pageProps}/> :
+                userData === null ? <Login saveUserId={saveUserId} {...pageProps}/> :
                     (
                         <div className="wrapper">
                             <Menu userData={userData}/>
