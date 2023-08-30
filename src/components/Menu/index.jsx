@@ -291,7 +291,11 @@ const Menu = ({userData}) => {
                     <a href="mailto:support@amanatdrive.kz">support@amanatdrive.kz</a>
                     <div className={styles.contacts__line}></div>
 
-                    <a href="/policy" style={{color: "darkblue"}}>Политика конфиденциальности</a>
+                    <Link
+                        href="/policy"
+                        onClick={() => dispatch(clickLink())}
+                        style={{color:"blue"}}
+                    >Политика конфиденциальности</Link>
 
                 </div>
 
