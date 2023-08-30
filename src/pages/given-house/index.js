@@ -10,10 +10,12 @@ export default function Index() {
     useEffect(() => {
         async function loadSheet() {
             const response = await fetch(`/api/givenHouses`);
-            return await response.json();
+            const result =  await response.json();
+            console.log({result})
+            setTableHouses(result)
         }
 
-        loadSheet().then(r => setTableHouses(r)).catch(e => console.error(e))
+        loadSheet().catch(e => console.error(e))
     }, [])
 
     const findByIIN = async (e) => {

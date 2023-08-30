@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Header from "@/components/Header";
+import React, {useEffect, useState} from "react";
 import Banner from "@/components/Banner";
 import TableLoader from "@/components/TableLoader";
 import TableTransfer from "@/components/Table/TableTransfer";

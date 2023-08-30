@@ -284,10 +284,15 @@ const Menu = ({userData}) => {
                 </nav>
 
                 <div className={styles.contacts}>
+                    <div className={styles.contacts__line}></div>
                     <a href="tel:+77002359516" className={styles.contacts__phone}>
                         +7 700 235 95 16
                     </a>
                     <a href="mailto:support@amanatdrive.kz">support@amanatdrive.kz</a>
+                    <div className={styles.contacts__line}></div>
+
+                    <a href="/policy" style={{color: "darkblue"}}>Политика конфиденциальности</a>
+
                 </div>
 
                 {burger && (

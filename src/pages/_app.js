@@ -13,8 +13,7 @@ export default function App({Component, pageProps}) {
 
     return (<Provider store={store}>
         <div className="app">
-            {loading ?
-                <Loading></Loading> :
+            {loading ? <Loading></Loading> :
                 userData === null ? <Login saveUserId={saveUserId} {...pageProps}/> :
                     (
                         <div className="wrapper">

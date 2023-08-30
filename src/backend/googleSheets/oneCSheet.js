@@ -162,7 +162,9 @@ function extractListData(list, thisDate) {
 }
 
 async function getEditedOneCSheetData() {
+    console.log("await for sheet")
     const sheet = await getOneCSheet()
+    // console.log({sheet})
     const today = new Date()
     const thisDate = {
         thisYear: today.getFullYear(),

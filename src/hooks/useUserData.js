@@ -11,6 +11,7 @@ export function useUserData() {
 
     useEffect(() => {
         setLoading(true)
+        if(userId === null) return
         fetchUserData(userId).then((userData) => {
             setUserId(userId)
             setUserData(userData)
@@ -29,7 +30,6 @@ export function useUserData() {
     }
 
     async function fetchUserData(userId) {
-        if (!userId) return null
         const response = await fetch("/api/auth/getData", {
             method: "POST",
             body: JSON.stringify({
