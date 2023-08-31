@@ -30,6 +30,7 @@ export function useUserData() {
     }
 
     async function fetchUserData(userId) {
+        if(!userId || userId === "") return null
         const response = await fetch("/api/auth/getData", {
             method: "POST",
             body: JSON.stringify({
