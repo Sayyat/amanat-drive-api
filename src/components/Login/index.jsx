@@ -166,7 +166,6 @@ const Login = ({saveUserId}) => {
                                     Отправить
                                 </button>
                             </div>
-                            <div className="line"></div>
                         </>
                     )}
 
