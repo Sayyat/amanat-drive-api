@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import Image from "next/image";
 import {PatternFormat} from "react-number-format";
-import {GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import logo from "../../assets/images/logo.png";
 import carAndHome from "../../assets/images/car-home.png";
@@ -168,21 +167,6 @@ const Login = ({saveUserId}) => {
                                 </button>
                             </div>
                             <div className="line"></div>
-                            <div className={"oauth"}>
-
-                                <GoogleOAuthProvider
-                                    clientId={"1073982536661-u50ihostb12fjvqlnph7g2gif14nam7b.apps.googleusercontent.com"}
-                                >
-                                    <GoogleLogin
-                                        onSuccess={success}
-                                        onError={error}
-                                        logo_alignment={"center"}
-                                    >
-
-                                    </GoogleLogin>
-                                </GoogleOAuthProvider>
-
-                            </div>
                         </>
                     )}
 
