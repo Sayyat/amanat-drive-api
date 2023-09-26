@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
     const isConfirmed = await confirmMessage(phone, confirmCode)
 
-    const rows = await login(phone, "");
+    const rows = await login(phone, "") || [];
 
     res.status(isConfirmed ? 200 : 400).json({
         id: rows.length === 0 ? null : rows[0]?.id
