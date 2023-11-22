@@ -1,7 +1,7 @@
 import {whiteListSheet} from "@/backend/googleSheets/raw/whitelistSheet";
 import {register} from "@/backend/database/auth";
 
-export default async function (req, res) {
+export default async function handler(req, res) {
     const {phone, email, lastname, firstname, middlename, iin, picture} = JSON.parse(req.body)
 
     const whiteList = await whiteListSheet()

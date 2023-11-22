@@ -1,6 +1,6 @@
 import {getUser} from "@/backend/database/users";
 
-export default async function (req, res) {
+export default async function handler(req, res) {
     const {userId} = JSON.parse(req.body)
 
     const result = await getUser(userId);
