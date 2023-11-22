@@ -11,6 +11,8 @@ export function splitName(name) {
 
 
 export function compareNames(fullname1, fullname2) {
+    if(fullname1.trim().length === 0 || fullname1.trim().length === 0)
+        return ""
     let [lastname1, firstname1, middlename1] = fullname1.trim().split(" ")
     let [lastname2, firstname2, middlename2] = fullname2.trim().split(" ")
 

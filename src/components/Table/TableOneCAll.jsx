@@ -25,14 +25,14 @@ const TableOneCAll = ({data, type, pathIndex}) => {
                             <tr>
                                 <td>№</td>
                                 <td>Ф.И.О.</td>
-                                <td>ИИН</td>
+                                {/*<td>ИИН</td>*/}
                                 <td>Договор</td>
-                                <td>Пополнено</td>
-                                <td>Статус
-                                    <br/>
-                                    <span className={styles.green}>{data.paidCount}</span>&nbsp;/&nbsp;
-                                    <span className={styles.red}>{data.sharers.length}</span>
-                                </td>
+                                {/*<td>Пополнено</td>*/}
+                                {/*<td>Статус*/}
+                                {/*    <br/>*/}
+                                {/*    <span className={styles.green}>{data.paidCount}</span>&nbsp;/&nbsp;*/}
+                                {/*    <span className={styles.red}>{data.sharers.length}</span>*/}
+                                {/*</td>*/}
                             </tr>
                             </thead>
                             <tbody>
@@ -40,19 +40,19 @@ const TableOneCAll = ({data, type, pathIndex}) => {
                                 <tr key={rowIndex}>
                                     <td>{rowIndex + 1}</td>
                                     <td>{row["fullname"]}</td>
-                                    <td className={styles.OneCTdLink}><
-                                        Link className={styles.red} href={{
-                                        pathname: `/${pathIndex}/${row["iin"] ? row["iin"] : row["fullname"]}`,
-                                        query: isType
-                                    }}>
-                                        {row["iin"] ? row["iin"] : "Подробнее"}
-                                    </Link>
-                                    </td>
+                                    {/*<td className={styles.OneCTdLink}>*/}
+                                    {/*    <Link className={styles.red} href={{*/}
+                                    {/*        pathname: `/${pathIndex}/${row["iin"] ? row["iin"] : row["fullname"]}`,*/}
+                                    {/*        query: isType*/}
+                                    {/*    }}>*/}
+                                    {/*        {row["iin"] ? row["iin"] : "Подробнее"}*/}
+                                    {/*    </Link>*/}
+                                    {/*</td>*/}
                                     <td>{row["contractNumber"]}</td>
-                                    <td style={row["isPaid"] ? {color: "green"} : {color: "red"}}>{row["paidCount"]} / {row["monthly"].length}</td>
-                                    <td style={{textAlign: "right"}}>{row["isPaid"] ?
-                                        <Image src={truePaid} alt="true check"/> :
-                                        <Image src={falsePaid} alt="false check"/>}</td>
+                                    {/*<td style={row["isPaid"] ? {color: "green"} : {color: "red"}}>{row["paidCount"]} / {row["monthly"].length}</td>*/}
+                                    {/*<td style={{textAlign: "right"}}>{row["isPaid"] ?*/}
+                                    {/*    <Image src={truePaid} alt="true check"/> :*/}
+                                    {/*    <Image src={falsePaid} alt="false check"/>}</td>*/}
                                 </tr>
                             ))}
                             {/*<tr key={"summaryRow"}>*/}

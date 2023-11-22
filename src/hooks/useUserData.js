@@ -11,7 +11,11 @@ export function useUserData() {
 
     useEffect(() => {
         setLoading(true)
-        if(userId === null) return
+        if(userId === null) {
+            setUserData(null)
+            setLoading(false)
+            return
+        }
         fetchUserData(userId).then((userData) => {
             setUserId(userId)
             setUserData(userData)

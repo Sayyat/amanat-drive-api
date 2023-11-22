@@ -10,7 +10,7 @@ import Loading from "@/components/Loading";
 
 export default function App({Component, pageProps}) {
     const {userData, loading, saveUserId, removeUserId} = useUserData()
-
+    console.log(userData, loading)
     return (<Provider store={store}>
         <div className="app">
             {loading ? <Loading></Loading> :
